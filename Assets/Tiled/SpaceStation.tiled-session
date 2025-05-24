@@ -7,6 +7,12 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "tileset1.tsx": {
+            "scaleInEditor": 3
+        },
+        "tileset2.tsx": {
+            "scaleInEditor": 1
+        }
     },
     "last.imagePath": "D:/Unity/StationFarming/Assets/Tiled",
     "map.fixedSize": false,
@@ -15,6 +21,8 @@
     ],
     "project": "SpaceStation.tiled-project",
     "recentFiles": [
+        "tileset2.tsx",
+        "tileset1.tsx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }

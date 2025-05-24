@@ -10,16 +10,21 @@ public class JetpackMovement : MonoBehaviour
 
     [SerializeField] private JetpackParticle jetpackParticle;
 
+    private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
+
     [Header("Input")]
     public float horizontallInput;
     public float verticalInput;
 
 
 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        _spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        _animator = gameObject.GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -37,26 +42,40 @@ public class JetpackMovement : MonoBehaviour
         if (horizontallInput > 0.01f)
         {
             rb.AddForce(Vector2.right * pushAmount);
-            jetpackParticle.PSEmission();
+            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            jetpackParticle.PSEmission(moveInput);
+            transform.localScale.x.Equals(1);
+            _spriteRenderer.flipX = false;
         }
         else if (horizontallInput < -0.01f)
         {
             rb.AddForce(Vector2.left * pushAmount);
-            jetpackParticle.PSEmission();
+            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            jetpackParticle.PSEmission(moveInput);
+            _spriteRenderer.flipX = true;
         }
 
 
         if (verticalInput > 0.01f)
         {
             rb.AddForce(Vector2.up * pushAmount);
-            jetpackParticle.PSEmission();
+            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            jetpackParticle.PSEmission(moveInput);
+            _animator.SetTrigger("Up");
         }
         else if (verticalInput < -0.01f)
         {
             rb.AddForce(Vector2.down * pushAmount);
-            jetpackParticle.PSEmission();
+            Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            jetpackParticle.PSEmission(moveInput);
+            _animator.SetTrigger("Down");
         }
 
+        if (verticalInput == 0)
+        {
+            _animator.SetTrigger("Idle");
+        }
+        
         if (horizontallInput == 0 && verticalInput == 0)
         {
             jetpackParticle.PSStopEmission();

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class JetpackParticle : MonoBehaviour
 {
-    public Rigidbody2D playerRb;
     public ParticleSystem jetpackParticles;
 
     private ParticleSystem.EmissionModule emission;
@@ -15,14 +14,18 @@ public class JetpackParticle : MonoBehaviour
         jetpackParticles.Play();
     }
 
-    public void PSEmission()
+    public void PSEmission(Vector2 inputDir)
     {
-        Vector2 moveDir = playerRb.velocity;
-
-        float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle + 180f);
-
-        emission.enabled = true;
+        if (inputDir.sqrMagnitude > 0.01f)
+        {
+            float angle = Mathf.Atan2(inputDir.y, inputDir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle + 180f);
+            emission.enabled = true;
+        }
+        else
+        {
+            emission.enabled = false;
+        }
     }
 
     public void PSStopEmission()
