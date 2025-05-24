@@ -7,6 +7,7 @@ public class JetpackMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
 
     [SerializeField] private float pushAmount;
+    [SerializeField] private float maxSpeed;
 
     [SerializeField] private JetpackParticle jetpackParticle;
 
@@ -35,7 +36,6 @@ public class JetpackMovement : MonoBehaviour
 
     private void Movement()
     {
-
         horizontallInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
@@ -79,6 +79,15 @@ public class JetpackMovement : MonoBehaviour
         if (horizontallInput == 0 && verticalInput == 0)
         {
             jetpackParticle.PSStopEmission();
+        }
+
+        if(rb.velocity.magnitude < 0.01)
+        {
+            rb.velocity = Vector2.zero;
+        }
+        else if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
         }
     }
 }
