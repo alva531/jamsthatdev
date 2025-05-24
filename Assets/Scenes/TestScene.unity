@@ -5660,8 +5660,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.06}
-  m_Size: {x: 0.22, y: 0.36}
+  m_Offset: {x: 0, y: -0.08}
+  m_Size: {x: 0.22, y: 0.0001}
   m_Direction: 0
 --- !u!4 &816693596
 Transform:
@@ -5775,7 +5775,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.012, y: 0.012, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 816693596}
@@ -6323,9 +6323,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.05}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.23
+  m_Radius: 0.17
 --- !u!114 &1791347383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6506,7 +6506,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 1.6
+  orthographic size: 0.95
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6676,7 +6676,7 @@ MonoBehaviour:
   m_Follow: {fileID: 816693596}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 1.6
+    OrthographicSize: 0.95
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
