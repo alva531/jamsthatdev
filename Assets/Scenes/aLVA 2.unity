@@ -822,10 +822,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eced002ce38fe604583e23571c45d615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 1
-  grabbableMask:
-    serializedVersion: 2
-    m_Bits: 128
+  canGrab: 0
+  grabbableTarget: {fileID: 0}
 --- !u!1 &1088816082
 GameObject:
   m_ObjectHideFlags: 0
@@ -6675,6 +6673,18 @@ PrefabInstance:
     - target: {fileID: -1450100514476638574, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
       propertyPath: m_SortingLayerID
       value: -96258449
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976210281041203261, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976210281041203261, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3976210281041203261, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1237797065
       objectReference: {fileID: 0}
     - target: {fileID: 6334513844395108109, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
       propertyPath: m_IsActive
