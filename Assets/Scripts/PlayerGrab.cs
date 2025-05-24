@@ -28,36 +28,44 @@ public class PlayerGrab : MonoBehaviour
           |   /wwwwww\\//wwwwww\hjw|
     */
 
-    public float distance = 1f;
-    public LayerMask grabbableMask;
+public bool canGrab = false;
+    public GameObject grabbableTarget = null;
 
-    GameObject box;
+    private GameObject currentlyGrabbedObject = null;
+    private FixedJoint2D currentJoint = null;
 
-    // Update is called once per frame
     void Update()
     {
-
-        Physics2D.queriesStartInColliders = false;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, distance, grabbableMask);
-
-        if (hit.collider != null && hit.collider.gameObject.tag == "Grabbable" && Input.GetKeyDown(KeyCode.Space))
+        if (canGrab && grabbableTarget != null && Input.GetKey(KeyCode.Space))
         {
-            box = hit.collider.gameObject;
-            box.GetComponent<FixedJoint2D>().connectedBody = this.GetComponent<Rigidbody2D>();
-            box.GetComponent<FixedJoint2D>().enabled = true;
+            if (currentJoint == null)
+            {
+                FixedJoint2D joint = grabbableTarget.GetComponent<FixedJoint2D>();
+                Rigidbody2D rb = grabbableTarget.GetComponent<Rigidbody2D>();
+
+                rb.velocity = GetComponent<Rigidbody2D>().velocity;
+                rb.angularVelocity = 0f;
+
+                joint.connectedBody = GetComponent<Rigidbody2D>();
+                joint.enabled = true;
+
+                currentJoint = joint;
+                currentlyGrabbedObject = grabbableTarget;
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.Space))
+        else
         {
-            box.GetComponent<FixedJoint2D>().enabled = false;
+            if (currentJoint != null && currentlyGrabbedObject != null)
+            {
+                Rigidbody2D rb = currentlyGrabbedObject.GetComponent<Rigidbody2D>();
+                rb.velocity = GetComponent<Rigidbody2D>().velocity;
+
+                currentJoint.enabled = false;
+                currentJoint.connectedBody = null;
+
+                currentJoint = null;
+                currentlyGrabbedObject = null;
+            }
         }
-
     }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-
-        Gizmos.DrawLine(transform.position, (Vector2)transform.position + Vector2.right * transform.localScale.x * distance);
-    }
-
 }

@@ -7,6 +7,14 @@
     "expandedProjectPaths": [
     ],
     "fileStates": {
+        "Level1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 102,
+                "y": -157.33333333333326
+            }
+        },
         "tileset1.tsx": {
             "scaleInEditor": 3
         },
@@ -21,8 +29,9 @@
     ],
     "project": "SpaceStation.tiled-project",
     "recentFiles": [
-        "tileset2.tsx",
-        "tileset1.tsx"
+        "tileset1.tsx",
+        "Level1.tmx",
+        "tileset2.tsx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }
