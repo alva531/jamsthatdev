@@ -8,7 +8,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject tutorialUI;
 
-    [SerializeField] private GameObject ExitButton;
 
 
     [SerializeField] private bool isPaused;
@@ -20,20 +19,12 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            ExitButton.SetActive(false);
-        }
-        else
-        {
-            ExitButton.SetActive(true);
-        }
+
     }
 
     void Update()
     {
         TutorialUI();
-        ExitButton.gameObject.SetActive(false);
 
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -93,7 +84,15 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("New ValveScene");
+    }
+
+    public void LoadCoopGame()
+    {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        SceneManager.LoadScene("CoopTest");
     }
 
     public void LoadMainMenu()
@@ -111,12 +110,6 @@ public class MenuController : MonoBehaviour
         Cursor.visible = true;
         SceneManager.LoadScene("Credits");
     }
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-
     private IEnumerator SlowDownTime()
     {
         float elapsed = 0f;
