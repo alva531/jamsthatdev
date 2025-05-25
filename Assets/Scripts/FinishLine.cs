@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FinishLine : MonoBehaviour
 {
@@ -26,7 +27,9 @@ public class FinishLine : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        Debug.Log("Credits");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("Credits");
     }
 }
 

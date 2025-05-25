@@ -17,12 +17,16 @@
             }
         },
         "Level1.tmx": {
-            "scale": 1,
-            "selectedLayer": 3,
+            "scale": 0.5,
+            "selectedLayer": -1,
             "viewCenter": {
-                "x": 1215.5,
-                "y": -187
+                "x": -71,
+                "y": -188
             }
+        },
+        "space.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "tileset1.tsx": {
             "scaleInDock": 2,
@@ -33,7 +37,7 @@
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "D:/Unity/StationFarming/Assets/Tiled",
+    "last.imagePath": "D:/Unity/StationFarming/Assets/Sprites",
     "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
     "openFiles": [
@@ -42,6 +46,7 @@
     "project": "SpaceStation.tiled-project",
     "recentFiles": [
         "Level1.tmx",
+        "space.tsx",
         "Level1 - copia.tmx",
         "tileset1.tsx",
         "tileset2.tsx"

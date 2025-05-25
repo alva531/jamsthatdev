@@ -179,6 +179,17 @@
                 },
                 {
                     "name": "",
+                    "id": "1383c97c-8243-4b48-b065-4e2af26c4844",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b4b36671-9742-4b9d-bdc4-88b560532fb1",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
@@ -375,6 +386,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Grab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "50e034cb-4623-427d-8b33-b78f210c671b",
+                    "path": "<Keyboard>/rightShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Grab",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -84,7 +84,7 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        SceneManager.LoadScene("New ValveScene");
+        SceneManager.LoadScene("Valve");
     }
 
     public void LoadCoopGame()
@@ -92,7 +92,7 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        SceneManager.LoadScene("CoopTest");
+        SceneManager.LoadScene("Valve2Coop");
     }
 
     public void LoadMainMenu()
