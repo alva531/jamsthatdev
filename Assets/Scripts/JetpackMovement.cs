@@ -13,26 +13,36 @@ public class JetpackMovement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private Animator _animator;
 
+    [Header("Input Settings")]
+    public string actionMapName = "Player1"; // o "Player2" si es el segundo jugador
+
     private InputActions inputActions;
+    private InputAction moveAction;
     private Vector2 moveInput;
 
     void Awake()
     {
         inputActions = new InputActions();
 
-        // Vincular acción de movimiento
-        inputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        inputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
+        // Activa solo el Action Map correspondiente
+        inputActions.asset.FindActionMap(actionMapName).Enable();
+
+        // Cargar la acción específica de movimiento (asegurate que exista como "Move")
+        moveAction = inputActions.asset.FindActionMap(actionMapName).FindAction("Move");
+
+        // Registrar callbacks
+        moveAction.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+        moveAction.canceled += ctx => moveInput = Vector2.zero;
     }
 
     void OnEnable()
     {
-        inputActions.Player.Enable();
+        moveAction?.Enable();
     }
 
     void OnDisable()
     {
-        inputActions.Player.Disable();
+        moveAction?.Disable();
     }
 
     void Start()
@@ -58,14 +68,7 @@ public class JetpackMovement : MonoBehaviour
             rb.AddForce(force);
             jetpackParticle.PSEmission(force);
 
-            if (horizontalInput > 0.01f)
-            {
-                spriteRenderer.flipX = false;
-            }
-            else if (horizontalInput < -0.01f)
-            {
-                spriteRenderer.flipX = true;
-            }
+            spriteRenderer.flipX = horizontalInput < -0.01f;
 
             if (verticalInput > 0.01f)
                 _animator.SetTrigger("Up");

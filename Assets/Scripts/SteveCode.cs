@@ -8,13 +8,29 @@ public class SteveCode : MonoBehaviour
     private GameObject _Steve;
     private bool _canPet = false;
 
+    [Header("Input Settings")]
+    public string actionMapName = "Player1";
+
+    private InputActions inputActions;
     private InputAction petAction;
 
     void Awake()
     {
-        var inputActions = new InputActions(); // Asegurate de que el nombre coincida con tu asset
-        petAction = inputActions.Player.Pet;
-        inputActions.Player.Enable();
+        inputActions = new InputActions();
+
+        inputActions.asset.FindActionMap(actionMapName).Enable();
+
+        petAction = inputActions.asset.FindActionMap(actionMapName).FindAction("Pet");
+    }
+
+    void OnEnable()
+    {
+        petAction?.Enable();
+    }
+
+    void OnDisable()
+    {
+        petAction?.Disable();
     }
 
     void Start()
@@ -50,11 +66,9 @@ public class SteveCode : MonoBehaviour
     {
         if (_Steve != null)
         {
-            _Steve.GetComponent<Animator>().SetTrigger("Pet");
+            _Steve.GetComponent<Animator>()?.SetTrigger("Pet");
         }
     }
-
-
 
 
 //This is Steve's code, he has a whole code for himself!!
