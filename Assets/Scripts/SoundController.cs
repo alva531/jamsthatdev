@@ -91,7 +91,7 @@ public class SoundController : MonoBehaviour
 
     public void DoorSFX()
     {
-        boxGrabSource.Play();
+        doorSource.Play();
     }
 
     public void MenuMusic()

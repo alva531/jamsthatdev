@@ -42,6 +42,7 @@ public class JetpackMovement : MonoBehaviour
         };
     }
 
+
     private void OnJetpackInput(bool isPressed)
     {
         soundController.SetAirSFXActive(isPressed);
@@ -61,6 +62,7 @@ public class JetpackMovement : MonoBehaviour
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponentInChildren<Animator>();
+        soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
     }
 
     void Update()

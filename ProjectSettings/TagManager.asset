@@ -12,6 +12,8 @@ TagManager:
   - Steve
   - Ship
   - SoundController
+  - Fade
+  - Plant
   layers:
   - Default
   - TransparentFX

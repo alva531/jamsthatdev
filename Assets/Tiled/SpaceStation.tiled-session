@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Level1 - copia.tmx",
+    "activeFile": "Level1.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Todos los archivos (*)",
@@ -17,11 +17,11 @@
             }
         },
         "Level1.tmx": {
-            "scale": 2,
+            "scale": 1,
             "selectedLayer": 3,
             "viewCenter": {
-                "x": 213.75,
-                "y": -269
+                "x": 1215.5,
+                "y": -187
             }
         },
         "tileset1.tsx": {
@@ -37,8 +37,7 @@
     "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "Level1.tmx",
-        "Level1 - copia.tmx"
+        "Level1.tmx"
     ],
     "project": "SpaceStation.tiled-project",
     "recentFiles": [

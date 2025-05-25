@@ -43,6 +43,7 @@ public class PotController : MonoBehaviour
             other.gameObject.GetComponent<BoxController>().Used();
             _animator.SetTrigger("Water");
             soundController.PotSFX();
+            GetComponentInParent<PlantsController>().MorePlants();
         }
     }
 }

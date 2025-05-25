@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8036361289381505676}
   - component: {fileID: 6167458412400368513}
   - component: {fileID: 459396564895370359}
-  - component: {fileID: 707483736077237341}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Water
@@ -213,19 +212,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
---- !u!114 &707483736077237341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 747312722946346769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6346e04e1bfe984da4772b15b353690, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uses: 4
 --- !u!1 &7158059172844170606
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +224,7 @@ GameObject:
   - component: {fileID: 4878609773010926008}
   - component: {fileID: 3454093537919741257}
   - component: {fileID: 5554562065262934439}
+  - component: {fileID: 2443682861417679783}
   m_Layer: 7
   m_Name: BoxWater
   m_TagString: Grabbable
@@ -304,7 +291,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.28, y: 0.21}
+  m_Size: {x: 0.2, y: 0.2}
   m_EdgeRadius: 0
 --- !u!50 &3454093537919741257
 Rigidbody2D:
@@ -352,3 +339,15 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 0.4389999, y: 1.378}
   m_DampingRatio: 0
   m_Frequency: 20
+--- !u!114 &2443682861417679783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158059172844170606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141757f5a43e26244893645181516c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
