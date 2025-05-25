@@ -32,7 +32,7 @@ void OnTriggerExit2D(Collider2D other)
 
 void PetTheSlime()
 {
-    if (Input.GetKeyDown(KeyCode.E))
+    if (Input.GetKeyDown(KeyCode.Space))
     {
         GetComponent<Animator>().SetTrigger("Pet");
     }
