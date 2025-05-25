@@ -635,26 +635,13 @@ GameObject:
   - component: {fileID: 195350322}
   - component: {fileID: 195350321}
   - component: {fileID: 195350320}
-  - component: {fileID: 195350319}
   m_Layer: 0
   m_Name: Steve
-  m_TagString: Untagged
+  m_TagString: Steve
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &195350319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 195350318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63ab1c08a434d2a418593aa97f759d90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &195350320
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6599,6 +6586,8 @@ GameObject:
   - component: {fileID: 816693594}
   - component: {fileID: 816693593}
   - component: {fileID: 816693592}
+  - component: {fileID: 816693598}
+  - component: {fileID: 816693597}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -6643,8 +6632,6 @@ MonoBehaviour:
   maxSpeed: 3
   jetpackParticle: {fileID: 765918889}
   spriteRenderer: {fileID: 0}
-  horizontallInput: 0
-  verticalInput: 0
 --- !u!50 &816693594
 Rigidbody2D:
   serializedVersion: 4
@@ -6725,6 +6712,100 @@ Transform:
   - {fileID: 765918892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &816693597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816693591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: bd85d27c675f6e744b5f8286ec4b9537, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 948e54d9-b7df-43c5-bcc8-dbaa8b17bdd6
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f1651c11-d27d-4c49-b917-8ebee7f9f8b2
+    m_ActionName: Player/Grab[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 370ed9df-89a9-496f-9771-592473de5ae3
+    m_ActionName: Player/Pet[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf5d1345-0aac-41bc-8daa-e7698e3f861b
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 811c1f8e-b66d-4b35-9adc-1a4cbae3bbd2
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 68c1d5e6-85ad-4e67-9de7-595033060e9a
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5d04dcf-ff45-413d-b2fc-82360de1aa9f
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 98852b5b-5fa3-4b9a-a01a-2d5df04f6fe6
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3cdeeb5a-3153-4dba-9eb7-eab5ac082cd7
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f797b0de-00d2-4d6f-a7c8-343840d0a588
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cd73e41c-4318-4a4a-ac17-b4f3396aa5e2
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cdf364a2-bf08-4327-83d8-1eb7e541c820
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cb3a5cf-2783-4196-806a-25498e6014a4
+    m_ActionName: UI/TrackedDeviceOrientation
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &816693598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816693591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ab1c08a434d2a418593aa97f759d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &863776044
 GameObject:
   m_ObjectHideFlags: 0

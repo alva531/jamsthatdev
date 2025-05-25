@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerGrab : MonoBehaviour
 {
@@ -38,13 +39,22 @@ public float distance = 3f;
     private GameObject heldObject;
     private int _direction;
 
-    void Update()
+    private InputAction grabAction;
+
+    private void Awake()
+    {
+        var inputActions = new InputActions(); // Asegúrate de que esta clase se llame igual que tu Input Action Asset
+        grabAction = inputActions.Player.Grab;
+        inputActions.Player.Enable();
+    }
+
+        void Update()
     {
         _direction = jetpackMovement.spriteRenderer.flipX ? -1 : 1;
         Vector2 baseDirection = Vector2.right * _direction;
         float halfAngle = angle / 2f;
 
-        if (heldObject == null && Input.GetKey(KeyCode.Space))
+        if (heldObject == null && grabAction.IsPressed())
         {
             for (int i = 0; i < rayCount; i++)
             {
@@ -62,24 +72,24 @@ public float distance = 3f;
 
                 if (hit.collider != null && hit.collider.CompareTag("Grabbable"))
                 {
-                  heldObject = hit.collider.gameObject;
+                    heldObject = hit.collider.gameObject;
 
-                  FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
-                  joint.connectedBody = GetComponent<Rigidbody2D>();
-                  joint.enabled = true;
-                  heldObject.GetComponentInChildren<Animator>().SetBool("Grab", true);
-                  break;
+                    FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
+                    joint.connectedBody = GetComponent<Rigidbody2D>();
+                    joint.enabled = true;
+                    heldObject.GetComponentInChildren<Animator>()?.SetBool("Grab", true);
+                    break;
                 }
             }
         }
 
-        if (heldObject != null && Input.GetKeyUp(KeyCode.Space))
+        if (heldObject != null && !grabAction.IsPressed())
         {
-          FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
-          joint.enabled = false;
-          joint.connectedBody = null;
-          heldObject.GetComponentInChildren<Animator>().SetBool("Grab", false);
-          heldObject = null;
+            FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
+            joint.enabled = false;
+            joint.connectedBody = null;
+            heldObject.GetComponentInChildren<Animator>()?.SetBool("Grab", false);
+            heldObject = null;
         }
     }
 

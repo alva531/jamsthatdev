@@ -1,44 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SteveCode : MonoBehaviour
 {
+    private GameObject _Steve;
+    private bool _canPet = false;
 
-bool _canPet = false;
+    private InputAction petAction;
 
-void FixedUpdate()
-{
-    if (_canPet == true)
+    void Awake()
     {
-        PetTheSlime();
+        var inputActions = new InputActions(); // Asegurate de que el nombre coincida con tu asset
+        petAction = inputActions.Player.Pet;
+        inputActions.Player.Enable();
     }
-}
 
-void OnTriggerEnter2D(Collider2D other)
-{
-    if (other.CompareTag("Player"))
+    void Start()
     {
-        _canPet = true;
+        _Steve = GameObject.FindWithTag("Steve");
     }
-}
-void OnTriggerExit2D(Collider2D other)
-{
-    if (other.CompareTag("Player"))
+
+    void FixedUpdate()
     {
-        _canPet = false;
+        if (_canPet && petAction.WasPressedThisFrame())
+        {
+            PetTheSlime();
+        }
     }
-}
 
-void PetTheSlime()
-{
-    if (Input.GetKeyDown(KeyCode.E))
+    void OnTriggerEnter2D(Collider2D other)
     {
-        GetComponent<Animator>().SetTrigger("Pet");
+        if (other.CompareTag("Steve"))
+        {
+            _canPet = true;
+        }
     }
-}
 
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Steve"))
+        {
+            _canPet = false;
+        }
+    }
 
+    void PetTheSlime()
+    {
+        if (_Steve != null)
+        {
+            _Steve.GetComponent<Animator>().SetTrigger("Pet");
+        }
+    }
 
 
 

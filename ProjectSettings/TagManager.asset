@@ -9,6 +9,7 @@ TagManager:
   - Dirt
   - Seed
   - Water
+  - Steve
   layers:
   - Default
   - TransparentFX
