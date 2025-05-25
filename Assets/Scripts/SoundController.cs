@@ -7,14 +7,43 @@ public class SoundController : MonoBehaviour
 {
     private AudioSource audioSource;
 
-    [SerializeField] private AudioClip thudSound;
-    [SerializeField] private AudioClip pickupSound;
+    private AudioClip thudSound;
+    private AudioClip pickupSound;
     [SerializeField] private AudioClip menuSound;
     [SerializeField] private AudioClip boxSlideSound;
 
 
     [SerializeField] private AudioClip menuMusic;
     [SerializeField] private AudioClip gameMusic;
+
+
+    [Header("Audio Sources")]
+
+    [SerializeField] private AudioSource thudSource;
+    [SerializeField] private AudioSource airSoundSource;
+    [SerializeField] private AudioSource boxGrabSource;
+    [SerializeField] private AudioSource potSource;
+    [SerializeField] private AudioSource boxhitSource;
+    [SerializeField] private AudioSource doorSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource menuSoundSource;
+
+
+
+    [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private float airMaxVolume = 0.5f;
+
+    private Coroutine airFadeCoroutine;
+    private bool isAirSoundPlaying = false;
+
+
+    [Header("Impact Sounds")]
+
+    [SerializeField] private float minVolume = 0.1f;
+    [SerializeField] private float maxVolume = 1.0f;
+    [SerializeField] private float minSpeed = 1f;   // Velocidad mínima para oír algo
+    [SerializeField] private float maxSpeed = 6f;   // Velocidad máxima = volumen máximo
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -30,14 +59,39 @@ public class SoundController : MonoBehaviour
     {
         audioSource.PlayOneShot(menuSound);
     }
-    public void ThudSFX()
+    public void ThudSFX(float relativeSpeed)
     {
-        audioSource.PlayOneShot(thudSound);
+        float volume = Mathf.InverseLerp(minSpeed, maxSpeed, relativeSpeed);
+        volume = Mathf.Clamp(volume, minVolume, maxVolume);
+
+        thudSource.volume = volume;
+        thudSource.Play();
+    }
+
+    public void BoxGrabSFX()
+    {
+        boxGrabSource.Play();
+    }
+
+    public void PotSFX()
+    {
+        potSource.Play();
+    }
+
+    public void BoxHitSFX()
+    {
+        boxhitSource.pitch = Random.Range(0.9f, 1.1f);
+        boxhitSource.Play();
     }
 
     public void BoxSlideSFX()
     {
         audioSource.PlayOneShot(boxSlideSound);
+    }
+
+    public void DoorSFX()
+    {
+        boxGrabSource.Play();
     }
 
     public void MenuMusic()
@@ -50,4 +104,59 @@ public class SoundController : MonoBehaviour
     }
 
 
+
+    public void SetAirSFXActive(bool active)
+    {
+        // Si se está pidiendo sonar
+        if (active)
+        {
+            if (airFadeCoroutine != null)
+                StopCoroutine(airFadeCoroutine);
+            airFadeCoroutine = StartCoroutine(FadeInAir());
+        }
+        else // Si se quiere detener
+        {
+            if (airFadeCoroutine != null)
+                StopCoroutine(airFadeCoroutine);
+            airFadeCoroutine = StartCoroutine(FadeOutAir());
+        }
+    }
+
+    private IEnumerator FadeInAir()
+    {
+        isAirSoundPlaying = true;
+
+        // Asegurarse que esté sonando
+        if (!airSoundSource.isPlaying)
+            airSoundSource.Play();
+
+        float startVolume = airSoundSource.volume;
+        float time = 0f;
+
+        while (time < fadeDuration)
+        {
+            airSoundSource.volume = Mathf.Lerp(startVolume, airMaxVolume, time / fadeDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        airSoundSource.volume = airMaxVolume;
+    }
+
+    private IEnumerator FadeOutAir()
+    {
+        float startVolume = airSoundSource.volume;
+        float time = 0f;
+
+        while (time < fadeDuration)
+        {
+            airSoundSource.volume = Mathf.Lerp(startVolume, 0f, time / fadeDuration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        airSoundSource.volume = 0f;
+        airSoundSource.Stop();
+        isAirSoundPlaying = false;
+    }
 }

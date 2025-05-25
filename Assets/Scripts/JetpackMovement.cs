@@ -10,6 +10,8 @@ public class JetpackMovement : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private JetpackParticle jetpackParticle;
 
+    public SoundController soundController;
+
     public SpriteRenderer spriteRenderer;
     private Animator _animator;
 
@@ -24,15 +26,25 @@ public class JetpackMovement : MonoBehaviour
     {
         inputActions = new InputActions();
 
-        // Activa solo el Action Map correspondiente
+        // Activar Action Map correcto
         inputActions.asset.FindActionMap(actionMapName).Enable();
 
-        // Cargar la acción específica de movimiento (asegurate que exista como "Move")
+        // Buscar acción "Move"
         moveAction = inputActions.asset.FindActionMap(actionMapName).FindAction("Move");
 
-        // Registrar callbacks
+        // Registrar eventos de input
+        moveAction.started += ctx => OnJetpackInput(true);
         moveAction.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        moveAction.canceled += ctx => moveInput = Vector2.zero;
+        moveAction.canceled += ctx =>
+        {
+            moveInput = Vector2.zero;
+            OnJetpackInput(false);
+        };
+    }
+
+    private void OnJetpackInput(bool isPressed)
+    {
+        soundController.SetAirSFXActive(isPressed);
     }
 
     void OnEnable()
@@ -88,6 +100,15 @@ public class JetpackMovement : MonoBehaviour
         else if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Ship"))
+        {
+            float relativeSpeed = other.relativeVelocity.magnitude;
+            soundController.ThudSFX(relativeSpeed);
         }
     }
 }

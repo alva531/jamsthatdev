@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 5124728769380497685}
   - component: {fileID: 2093837754129308017}
   - component: {fileID: 3642483169841564401}
+  - component: {fileID: 5372822905826221985}
   m_Layer: 7
   m_Name: BoxDirt
   m_TagString: Grabbable
@@ -292,3 +293,15 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 0.4389999, y: 1.378}
   m_DampingRatio: 0
   m_Frequency: 20
+--- !u!114 &5372822905826221985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329834150066940637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141757f5a43e26244893645181516c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

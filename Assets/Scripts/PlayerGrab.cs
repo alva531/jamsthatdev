@@ -97,6 +97,7 @@ public class PlayerGrab : MonoBehaviour
 
                     var anim = heldObject.GetComponentInChildren<Animator>();
                     if (anim != null) anim.SetBool("Grab", true);
+                    GetComponent<JetpackMovement>().soundController.BoxGrabSFX();
                     break;
                 }
             }
