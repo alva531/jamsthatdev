@@ -1718,6 +1718,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: TileSet v1.0_76
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2bb3e1678d685140a887c5e3482d141
+      internalID: 1579507815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -1803,6 +1824,7 @@ TextureImporter:
       TileSet v1.0_73: 177622783
       TileSet v1.0_74: -2114544383
       TileSet v1.0_75: 1558820363
+      TileSet v1.0_76: 1579507815
       TileSet v1.0_8: 1790144686
       TileSet v1.0_9: 1449285333
   mipmapLimitGroupName: 

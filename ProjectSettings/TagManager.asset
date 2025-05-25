@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Grabbable
   - Pot
+  - Dirt
+  - Seed
+  - Water
   layers:
   - Default
   - TransparentFX
