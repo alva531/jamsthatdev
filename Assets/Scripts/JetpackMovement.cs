@@ -11,7 +11,7 @@ public class JetpackMovement : MonoBehaviour
 
     [SerializeField] private JetpackParticle jetpackParticle;
 
-    private SpriteRenderer _spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     private Animator _animator;
 
     [Header("Input")]
@@ -24,7 +24,7 @@ public class JetpackMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         _animator = gameObject.GetComponentInChildren<Animator>();
     }
 
@@ -45,14 +45,14 @@ public class JetpackMovement : MonoBehaviour
             Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             jetpackParticle.PSEmission(moveInput);
             transform.localScale.x.Equals(1);
-            _spriteRenderer.flipX = false;
+            spriteRenderer.flipX = false;
         }
         else if (horizontallInput < -0.01f)
         {
             rb.AddForce(Vector2.left * pushAmount);
             Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             jetpackParticle.PSEmission(moveInput);
-            _spriteRenderer.flipX = true;
+            spriteRenderer.flipX = true;
         }
 
 

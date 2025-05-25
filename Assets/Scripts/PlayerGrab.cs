@@ -4,68 +4,116 @@ using UnityEngine;
 
 public class PlayerGrab : MonoBehaviour
 {
-    /*
-      [I like to grab stuff]
-                    \
-                     \
-                     .--.
-                   .'    `.
-                  :  _  _  ;
-                .-|  _  _  |-.
-               ((_| (O)(O) |_))
-                `-|  .--.  |-'
-                .-' (    ) `-.
-               / .-._`--'_.-. \
-              ( (n   uuuu   n) )
-               `.`"=nnnnnn="'.'
-                 `-.______.-'
-                 __/\|  |/\__
-              .='w/\ \__/ /\w`=.
-            .-\ww(( \/88\/ ))ww/-.
-           /  |www\\ \88/ //www|  \
-          |   |wwww\\/88\//wwww|   |
-          |   |wwwww\\88//wwwww|   |
-          |   /wwwwww\\//wwwwww\hjw|
-    */
+  /*
+    [I like to grab stuff]
+                  \
+                   \
+                   .--.
+                 .'    `.
+                :  _  _  ;
+              .-|  _  _  |-.
+             ((_| (O)(O) |_))
+              `-|  .--.  |-'
+              .-' (    ) `-.
+             / .-._`--'_.-. \
+            ( (n   uuuu   n) )
+             `.`"=nnnnnn="'.'
+               `-.______.-'
+               __/\|  |/\__
+            .='w/\ \__/ /\w`=.
+          .-\ww(( \/88\/ ))ww/-.
+         /  |www\\ \88/ //www|  \
+        |   |wwww\\/88\//wwww|   |
+        |   |wwwww\\88//wwwww|   |
+        |   /wwwwww\\//wwwwww\hjw|
+  */
 
-public bool canGrab = false;
-    public GameObject grabbableTarget = null;
+  public float distance = 3f;// Largo de los rayos
+  public float angle = 60f;// Ángulo total del cono
+  public int rayCount = 8;// Cantidad de rayos
+  public LayerMask grabbableMask;
+  public Transform rayOrigin;// Objeto hijo del jugador que lanza los rayos
 
-    private GameObject currentlyGrabbedObject = null;
-    private FixedJoint2D currentJoint = null;
+  private GameObject detectedObject;
 
-    void Update()
+  public JetpackMovement jetpackMovement;
+
+  private int _direction;
+
+  void Update()
+  {
+    // Dirección base del jugador (izquierda o derecha)
+    _direction = jetpackMovement.spriteRenderer.flipX ? -1 : 1;
+
+    Vector2 baseDirection = Vector2.right * _direction;
+    
+
+    // Ángulo de inicio (negativo la mitad del total)
+    float halfAngle = angle / 2f;
+
+    // Reset detección
+    detectedObject = null;
+
+    for (int i = 0; i < rayCount; i++)
     {
-        if (canGrab && grabbableTarget != null && Input.GetKey(KeyCode.Space))
-        {
-            if (currentJoint == null)
-            {
-                FixedJoint2D joint = grabbableTarget.GetComponent<FixedJoint2D>();
-                Rigidbody2D rb = grabbableTarget.GetComponent<Rigidbody2D>();
+      // Interpolar ángulos desde -halfAngle hasta +halfAngle
+      float t = i / (float)(rayCount - 1);
+      float currentAngle = Mathf.Lerp(-halfAngle, halfAngle, t);
+      float finalAngle = currentAngle * Mathf.Deg2Rad;
 
-                rb.velocity = GetComponent<Rigidbody2D>().velocity;
-                rb.angularVelocity = 0f;
+      // Rotar dirección base según el ángulo
+      Vector2 dir = new Vector2(
+          baseDirection.x * Mathf.Cos(finalAngle) - baseDirection.y * Mathf.Sin(finalAngle),
+          baseDirection.x * Mathf.Sin(finalAngle) + baseDirection.y * Mathf.Cos(finalAngle)
+      );
 
-                joint.connectedBody = GetComponent<Rigidbody2D>();
-                joint.enabled = true;
+      RaycastHit2D hit = Physics2D.Raycast(rayOrigin.position, dir, distance, grabbableMask);
+      Debug.DrawRay(rayOrigin.position, dir * distance, Color.red);
 
-                currentJoint = joint;
-                currentlyGrabbedObject = grabbableTarget;
-            }
-        }
-        else
-        {
-            if (currentJoint != null && currentlyGrabbedObject != null)
-            {
-                Rigidbody2D rb = currentlyGrabbedObject.GetComponent<Rigidbody2D>();
-                rb.velocity = GetComponent<Rigidbody2D>().velocity;
-
-                currentJoint.enabled = false;
-                currentJoint.connectedBody = null;
-
-                currentJoint = null;
-                currentlyGrabbedObject = null;
-            }
-        }
+      if (hit.collider != null && hit.collider.CompareTag("Grabbable"))
+      {
+        detectedObject = hit.collider.gameObject;
+        // Opcional: salirse al encontrar uno
+        break;
+      }
     }
+
+    // Interacción con el objeto
+    if (detectedObject != null && Input.GetKeyDown(KeyCode.Space))
+    {
+      FixedJoint2D joint = detectedObject.GetComponent<FixedJoint2D>();
+      joint.connectedBody = GetComponent<Rigidbody2D>();
+      joint.enabled = true;
+    }
+
+    if (Input.GetKeyUp(KeyCode.Space) && detectedObject != null)
+    {
+      FixedJoint2D joint = detectedObject.GetComponent<FixedJoint2D>();
+      joint.enabled = false;
+      joint.connectedBody = null;
+    }
+  void OnDrawGizmos()
+    {
+      if (rayOrigin == null) return;
+
+      int direction = (transform.localScale.x >= 0) ? 1 : -1;
+      Vector2 baseDirection = Vector2.right * direction;
+      float halfAngle = angle / 2f;
+
+      for (int i = 0; i < rayCount; i++)
+      {
+          float t = i / (float)(rayCount - 1);
+          float currentAngle = Mathf.Lerp(-halfAngle, halfAngle, t);
+          float finalAngle = currentAngle * Mathf.Deg2Rad;
+
+          Vector2 dir = new Vector2(
+              baseDirection.x * Mathf.Cos(finalAngle) - baseDirection.y * Mathf.Sin(finalAngle),
+              baseDirection.x * Mathf.Sin(finalAngle) + baseDirection.y * Mathf.Cos(finalAngle)
+          );
+
+          Gizmos.color = Color.yellow;
+          Gizmos.DrawLine(rayOrigin.position, rayOrigin.position + (Vector3)(dir * distance));
+      }
+    }
+  }
 }
