@@ -2902,6 +2902,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &658770568 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1051222093835844353, guid: 4ca57256ebd97b4489279b212cb6f398, type: 3}
+  m_PrefabInstance: {fileID: 1651957733}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &658770570 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4233249950770938146, guid: 4ca57256ebd97b4489279b212cb6f398, type: 3}
+  m_PrefabInstance: {fileID: 1651957733}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &660170630 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8652171727678669645, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
@@ -5487,6 +5497,7 @@ GameObject:
   - component: {fileID: 1284850850}
   - component: {fileID: 1284850849}
   - component: {fileID: 1284850848}
+  - component: {fileID: 1284850852}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5578,6 +5589,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1284850852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284850847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0568543b83f4b4b4db4922893bfcc1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Player1: {fileID: 658770568}
+  _Player2: {fileID: 1866755952}
+  _Player1Anim: {fileID: 658770570}
+  _Player2Anim: {fileID: 1866755954}
+  _undertale1: {fileID: 22100000, guid: 3ec7d3d6a8c68c142ba04a79bbd42d48, type: 2}
+  _undertale2: {fileID: 22100000, guid: 1c17defa4ffb91b418a89e5f2f4c1c00, type: 2}
+  _isaac1: {fileID: 22100000, guid: 5c19b6466bf964a44ac68fd6fea9c36f, type: 2}
+  _isaac2: {fileID: 22100000, guid: 606748c4e3638c942b0e601feff49769, type: 2}
 --- !u!1001 &1287002472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7364,6 +7395,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4233249950770938146, guid: 4ca57256ebd97b4489279b212cb6f398, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7e467c480850870409db02d56203295f, type: 2}
     - target: {fileID: 6034134453521686782, guid: 4ca57256ebd97b4489279b212cb6f398, type: 3}
       propertyPath: m_Name
       value: Player P1
@@ -7670,9 +7705,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8612373129624314387, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -7449057041981842195, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
       propertyPath: m_TagString
       value: Ship
+      objectReference: {fileID: 0}
+    - target: {fileID: -7101641952399717566, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -5743266672051130251, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
       propertyPath: m_TagString
@@ -7682,6 +7725,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8a068b6a42c3fd349bc50222d4ec8899, type: 2}
+    - target: {fileID: -4772833561503195362, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4623599822857043544, guid: 4d6d5583f10dbcb4fb58a24994c71866, type: 3}
       propertyPath: m_TagString
       value: Ship
@@ -8177,6 +8224,16 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8813696097379736194, guid: 91dd55ba922256245b36ffaab29eae1d, type: 3}
   m_PrefabInstance: {fileID: 1863841637}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1866755952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3086082461965892915, guid: ff634b1049fef444994ad16dc7c4876a, type: 3}
+  m_PrefabInstance: {fileID: 1509165443}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1866755954 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3577786486699358240, guid: ff634b1049fef444994ad16dc7c4876a, type: 3}
+  m_PrefabInstance: {fileID: 1509165443}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1868707609
 PrefabInstance:

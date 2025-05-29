@@ -7087,6 +7087,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1642476495 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3450310591212917531, guid: 7f781d36ba0da3844bc2b357a5fd267f, type: 3}
+  m_PrefabInstance: {fileID: 2058369292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1671768283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3450310591212917531, guid: 7f781d36ba0da3844bc2b357a5fd267f, type: 3}
+  m_PrefabInstance: {fileID: 331690672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1677168507
 GameObject:
   m_ObjectHideFlags: 0
@@ -9727,11 +9737,11 @@ PrefabInstance:
     - target: {fileID: 9209776745283808249, guid: fe8e45b808427964585bde0a99d11128, type: 3}
       propertyPath: _plantBox1
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1642476495}
     - target: {fileID: 9209776745283808249, guid: fe8e45b808427964585bde0a99d11128, type: 3}
       propertyPath: _plantBox2
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1671768283}
     - target: {fileID: 9209776745283808249, guid: fe8e45b808427964585bde0a99d11128, type: 3}
       propertyPath: _soundController
       value: 
