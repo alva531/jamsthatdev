@@ -5,31 +5,31 @@ using UnityEngine.InputSystem;
 
 public class PlayerGrab : MonoBehaviour
 {
-  /*
-    [I like to grab stuff]
-                  \
-                   \
-                   .--.
-                 .'    `.
-                :  _  _  ;
-              .-|  _  _  |-.
-             ((_| (O)(O) |_))
-              `-|  .--.  |-'
-              .-' (    ) `-.
-             / .-._`--'_.-. \
-            ( (n   uuuu   n) )
-             `.`"=nnnnnn="'.'
-               `-.______.-'
-               __/\|  |/\__
-            .='w/\ \__/ /\w`=.
-          .-\ww(( \/88\/ ))ww/-.
-         /  |www\\ \88/ //www|  \
-        |   |wwww\\/88\//wwww|   |
-        |   |wwwww\\88//wwwww|   |
-        |   /wwwwww\\//wwwwww\hjw|
-  */
+    /*
+      [I like to grab stuff]
+                    \
+                     \
+                     .--.
+                   .'    `.
+                  :  _  _  ;
+                .-|  _  _  |-.
+               ((_| (O)(O) |_))
+                `-|  .--.  |-'
+                .-' (    ) `-.
+               / .-._`--'_.-. \
+              ( (n   uuuu   n) )
+               `.`"=nnnnnn="'.'
+                 `-.______.-'
+                 __/\|  |/\__
+              .='w/\ \__/ /\w`=.
+            .-\ww(( \/88\/ ))ww/-.
+           /  |www\\ \88/ //www|  \
+          |   |wwww\\/88\//wwww|   |
+          |   |wwwww\\88//wwwww|   |
+          |   /wwwwww\\//wwwwww\hjw|
+    */
 
-[Header("Grab Settings")]
+    [Header("Grab Settings")]
     public float distance = 3f;
     public float angle = 60f;
     public int rayCount = 8;
@@ -65,7 +65,7 @@ public class PlayerGrab : MonoBehaviour
         grabAction?.Disable();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         _direction = jetpackMovement.spriteRenderer.flipX ? -1 : 1;
         Vector2 baseDirection = Vector2.right * _direction;
@@ -94,6 +94,12 @@ public class PlayerGrab : MonoBehaviour
                     FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
                     joint.connectedBody = GetComponent<Rigidbody2D>();
                     joint.enabled = true;
+
+                    Rigidbody2D heldRb = heldObject.GetComponent<Rigidbody2D>();
+                    Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
+
+                    // Copiar velocidad del jugador a la caja
+                    heldRb.velocity = playerRb.velocity;
 
                     var anim = heldObject.GetComponentInChildren<Animator>();
                     if (anim != null) anim.SetBool("Grab", true);

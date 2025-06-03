@@ -111,6 +111,15 @@ public class JetpackMovement : MonoBehaviour
         {
             float relativeSpeed = other.relativeVelocity.magnitude;
             soundController.ThudSFX(relativeSpeed);
+
+            if (relativeSpeed > 0.01f)
+            {
+                Vector2 knockbackDir = other.contacts[0].normal;
+                
+                Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                float knockbackForce = 0.05f;
+                rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+            }
         }
     }
 }

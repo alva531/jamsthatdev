@@ -22,7 +22,7 @@ public class MenuController : MonoBehaviour
 
     }
 
-    void Update()
+    void FixedUpdate()
     {
         TutorialUI();
 

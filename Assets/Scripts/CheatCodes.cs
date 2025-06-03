@@ -38,7 +38,7 @@ public class CheatCodes : MonoBehaviour
         _original2 = _Player2Anim.runtimeAnimatorController;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         foreach (char c in Input.inputString)
         {

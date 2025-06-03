@@ -6,7 +6,7 @@ public class BoxController : MonoBehaviour
 {
     public int uses = 4;
 
-    void Update()
+    void FixedUpdate()
     {
         if (uses <= 0)
         {
