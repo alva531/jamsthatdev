@@ -59,7 +59,7 @@ public class VoronoiSplit : MonoBehaviour
     public bool EnableFXAA = true;
 
     [Header("Players")]
-    public int PlayerCount = 0;
+    public int PlayerCount = 2;
     public Transform[] Players;
     public bool EnableMerging = true;
     
@@ -152,15 +152,29 @@ public class VoronoiSplit : MonoBehaviour
 
     private void Update()
     {
+
+
         // handle edge cases
         {
+            // if (Players.Length < PlayerCount)
+            // {
+            //     PlayerCount = Players.Length;
+            //     Debug.LogWarningFormat(
+            //         "PlayerCount ({0}) is higher than number of players in Players ({1}) array. Setting PlayerCount to {1}.",
+            //         PlayerCount, Players.Length);
+            // }
             if (Players.Length < PlayerCount)
             {
-                PlayerCount = Players.Length;
-                Debug.LogWarningFormat(
-                    "PlayerCount ({0}) is higher than number of players in Players ({1}) array. Setting PlayerCount to {1}.",
-                    PlayerCount, Players.Length);
+                GameObject[] foundPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+                Players = new Transform[foundPlayers.Length];
+
+                for (int i = 0; i < foundPlayers.Length; i++)
+                {
+                    Players[i] = foundPlayers[i].transform;
+                }
             }
+            
 
             if (PlayerCount > MAX_PLAYERS)
             {

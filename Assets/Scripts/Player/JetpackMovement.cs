@@ -15,54 +15,26 @@ public class JetpackMovement : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private Animator _animator;
 
-    [Header("Input Settings")]
-    public string actionMapName = "Player1"; // o "Player2" si es el segundo jugador
-
-    private InputActions inputActions;
-    private InputAction moveAction;
     private Vector2 moveInput;
-
-    void Awake()
-    {
-        inputActions = new InputActions();
-
-        // Activar Action Map correcto
-        inputActions.asset.FindActionMap(actionMapName).Enable();
-
-        // Buscar acción "Move"
-        moveAction = inputActions.asset.FindActionMap(actionMapName).FindAction("Move");
-
-        // Registrar eventos de input
-        moveAction.started += ctx => OnJetpackInput(true);
-        moveAction.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
-        moveAction.canceled += ctx =>
-        {
-            moveInput = Vector2.zero;
-            OnJetpackInput(false);
-        };
-    }
-
-
-    private void OnJetpackInput(bool isPressed)
-    {
-        soundController.SetAirSFXActive(isPressed);
-    }
-
-    void OnEnable()
-    {
-        moveAction?.Enable();
-    }
-
-    void OnDisable()
-    {
-        moveAction?.Disable();
-    }
 
     void Start()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponentInChildren<Animator>();
         soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+    }
+
+    public void SetInputVector(Vector2 input)
+    {
+        bool wasMoving = moveInput != Vector2.zero;
+        bool isMoving = input != Vector2.zero;
+
+        moveInput = input;
+
+        if (!wasMoving && isMoving)
+            soundController.SetAirSFXActive(true);
+        else if (wasMoving && !isMoving)
+            soundController.SetAirSFXActive(false);
     }
 
     void Update()
@@ -81,7 +53,6 @@ public class JetpackMovement : MonoBehaviour
         {
             rb.AddForce(force);
             jetpackParticle.PSEmission(force);
-
             spriteRenderer.flipX = horizontalInput < -0.01f;
 
             if (verticalInput > 0.01f)
@@ -115,10 +86,7 @@ public class JetpackMovement : MonoBehaviour
             if (relativeSpeed > 0.01f)
             {
                 Vector2 knockbackDir = other.contacts[0].normal;
-                
-                Rigidbody2D rb = GetComponent<Rigidbody2D>();
-                float knockbackForce = 0.05f;
-                rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+                rb.AddForce(knockbackDir * 0.05f, ForceMode2D.Impulse);
             }
         }
     }

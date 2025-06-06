@@ -9,13 +9,12 @@ public class CheatCodes : MonoBehaviour
 
 
     [Header("Base Player")]
-    [SerializeField] GameObject _Player1;
-    [SerializeField] GameObject _Player2;
-    [SerializeField] Animator _Player1Anim;
-    [SerializeField] Animator _Player2Anim;
+    [SerializeField] private int PlayerCount = 2;
 
-    RuntimeAnimatorController _original1;
-    RuntimeAnimatorController _original2;
+    private List<GameObject> players = new List<GameObject>();
+    private List<Animator> animators = new List<Animator>();
+
+    private List<RuntimeAnimatorController> originalControllers = new List<RuntimeAnimatorController>();
 
     [Header("Mod Stuff")]
 
@@ -34,12 +33,18 @@ public class CheatCodes : MonoBehaviour
             { "CLEAR", NoMod },
         };
 
-        _original1 = _Player1Anim.runtimeAnimatorController;
-        _original2 = _Player2Anim.runtimeAnimatorController;
+        UpdatePlayersIfNeeded();
+
+        foreach (var animator in animators)
+        {
+            originalControllers.Add(animator.runtimeAnimatorController);
+        }
     }
 
     void FixedUpdate()
     {
+        UpdatePlayersIfNeeded();
+
         foreach (char c in Input.inputString)
         {
             if (char.IsLetterOrDigit(c))
@@ -62,26 +67,55 @@ public class CheatCodes : MonoBehaviour
         }
     }
 
+    void UpdatePlayersIfNeeded()
+    {
+        if (players.Count < PlayerCount)
+        {
+            GameObject[] foundPlayers = GameObject.FindGameObjectsWithTag("Player");
+
+            players.Clear();
+            animators.Clear();
+
+            foreach (var obj in foundPlayers)
+            {
+                players.Add(obj);
+
+                Animator anim = obj.GetComponent<Animator>();
+                if (anim != null)
+                    animators.Add(anim);
+            }
+        }
+    }
+
     void UndertaleMod()
     {
-        _Player1Anim.runtimeAnimatorController = _undertale1;
-        _Player2Anim.runtimeAnimatorController = _undertale2;
+        for (int i = 0; i < animators.Count; i++)
+        {
+            if (i == 0) animators[i].runtimeAnimatorController = _undertale1;
+            else if (i == 1) animators[i].runtimeAnimatorController = _undertale2;
+        }
 
         Debug.Log("OMG is that guy from untertale, what was it called? Sons??");
     }
 
     void IsaacMod()
     {
-        _Player1Anim.runtimeAnimatorController = _isaac1;
-        _Player2Anim.runtimeAnimatorController = _isaac2;
+        for (int i = 0; i < animators.Count; i++)
+        {
+            if (i == 0) animators[i].runtimeAnimatorController = _isaac1;
+            else if (i == 1) animators[i].runtimeAnimatorController = _isaac2;
+        }
+
         Debug.Log("OMG is Isaac from The Binding of Isaac: Repentance+ Beta");
     }
 
     void NoMod()
     {
-        _Player1Anim.runtimeAnimatorController = _original1;
-        _Player2Anim.runtimeAnimatorController = _original2;
+        for (int i = 0; i < animators.Count && i < originalControllers.Count; i++)
+        {
+            animators[i].runtimeAnimatorController = originalControllers[i];
+        }
+
         Debug.Log("Mods Cleared");
     }
-
 }

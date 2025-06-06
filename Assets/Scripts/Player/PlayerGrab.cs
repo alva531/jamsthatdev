@@ -29,7 +29,7 @@ public class PlayerGrab : MonoBehaviour
           |   /wwwwww\\//wwwwww\hjw|
     */
 
-    [Header("Grab Settings")]
+     [Header("Grab Settings")]
     public float distance = 3f;
     public float angle = 60f;
     public int rayCount = 8;
@@ -37,32 +37,13 @@ public class PlayerGrab : MonoBehaviour
     public Transform rayOrigin;
     public JetpackMovement jetpackMovement;
 
-    [Header("Input Settings")]
-    public string actionMapName = "Player1";
-
-    private InputActions inputActions;
-    private InputAction grabAction;
-
     private GameObject heldObject;
     private int _direction;
+    private bool isGrabbing;
 
-    private void Awake()
+    public void TryGrab(bool isPressed)
     {
-        inputActions = new InputActions();
-
-        inputActions.asset.FindActionMap(actionMapName).Enable();
-
-        grabAction = inputActions.asset.FindActionMap(actionMapName).FindAction("Grab");
-    }
-
-    private void OnEnable()
-    {
-        grabAction?.Enable();
-    }
-
-    private void OnDisable()
-    {
-        grabAction?.Disable();
+        isGrabbing = isPressed;
     }
 
     void FixedUpdate()
@@ -71,7 +52,7 @@ public class PlayerGrab : MonoBehaviour
         Vector2 baseDirection = Vector2.right * _direction;
         float halfAngle = angle / 2f;
 
-        if (heldObject == null && grabAction.IsPressed())
+        if (heldObject == null && isGrabbing)
         {
             for (int i = 0; i < rayCount; i++)
             {
@@ -97,19 +78,18 @@ public class PlayerGrab : MonoBehaviour
 
                     Rigidbody2D heldRb = heldObject.GetComponent<Rigidbody2D>();
                     Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
-
-                    // Copiar velocidad del jugador a la caja
                     heldRb.velocity = playerRb.velocity;
 
                     var anim = heldObject.GetComponentInChildren<Animator>();
                     if (anim != null) anim.SetBool("Grab", true);
-                    GetComponent<JetpackMovement>().soundController.BoxGrabSFX();
+
+                    jetpackMovement.soundController.BoxGrabSFX();
                     break;
                 }
             }
         }
 
-        if (heldObject != null && !grabAction.IsPressed())
+        if (heldObject != null && !isGrabbing)
         {
             FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
             joint.enabled = false;
