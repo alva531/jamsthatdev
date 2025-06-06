@@ -813,18 +813,36 @@ MonoBehaviour:
   playerSprites:
   - {fileID: 2062122632, guid: 0ea82b3a449988e47b59d028fbacd57d, type: 3}
   - {fileID: 109038570, guid: 683359097fd519644a401564ccefe870, type: 3}
-  - {fileID: 1630333399, guid: 0092bdbca78db2347ae84ab2155ddb74, type: 3}
-  - {fileID: 292035179, guid: e71ce43808bc5854095d58a8e96d229f, type: 3}
-  - {fileID: -2018647150, guid: 4cff57da7a9d4564881527be5827db99, type: 3}
-  - {fileID: 967267786, guid: 20bbbf59c2210a84897ad650520408de, type: 3}
+  - {fileID: 402280568, guid: 61df952a01ab5794293bc80b89b0f228, type: 3}
+  - {fileID: -68155311, guid: c5e834be2c61e4b4b92f0854e12216b6, type: 3}
+  - {fileID: -1325806162, guid: 797c7ffe666b3074a9fb9c3ea62f8228, type: 3}
+  - {fileID: -1264605309, guid: 196da1bc11cf8694e8b27097f102fbdf, type: 3}
+  - {fileID: 218803201, guid: f0e0b9ac6cc39cb4c8a7ebdf22df930f, type: 3}
+  - {fileID: 360624507, guid: 8b1f2e034fd416e4e8812d0ed08d09b1, type: 3}
+  - {fileID: -1148950921, guid: df95366c00f8a2044a5b1835fcab3bd6, type: 3}
+  - {fileID: 1397955608, guid: 91e4e2df08a21134f93ee375c1333b6d, type: 3}
+  - {fileID: 676462938, guid: 6bb06f54d8d08724db98dd57e2327bf9, type: 3}
+  - {fileID: 226015123, guid: 2fb23b787981fc840b75a23a4da68807, type: 3}
+  - {fileID: -98996862, guid: b07270d817f26dd419a75ead511f2255, type: 3}
+  - {fileID: 1078086256, guid: a889a6ac79d2a4149bdcdaac49579f4d, type: 3}
+  - {fileID: -870956462, guid: 4b77c13e90032fb4380e95155c42a7c3, type: 3}
   playerDisplay: {fileID: 391033171822171000}
   playerAnimatorSkins:
   - {fileID: 22100000, guid: c385501719bbdf443a9fc3b67600db94, type: 2}
   - {fileID: 22100000, guid: 7aea3af5061e8c14cbc222f33d6d00fa, type: 2}
-  - {fileID: 22100000, guid: 3ec7d3d6a8c68c142ba04a79bbd42d48, type: 2}
-  - {fileID: 22100000, guid: 1c17defa4ffb91b418a89e5f2f4c1c00, type: 2}
-  - {fileID: 22100000, guid: 5c19b6466bf964a44ac68fd6fea9c36f, type: 2}
-  - {fileID: 22100000, guid: 606748c4e3638c942b0e601feff49769, type: 2}
+  - {fileID: 22100000, guid: 2ce71f0d27052bb45b256287aa25511b, type: 2}
+  - {fileID: 22100000, guid: 02159eb8eaa46e643a9a3d344a4b5c92, type: 2}
+  - {fileID: 22100000, guid: e980269cce478a14c85d12a935ea440b, type: 2}
+  - {fileID: 22100000, guid: b7caaab126803be44b257ff840927b2c, type: 2}
+  - {fileID: 22100000, guid: 6361ae62c9012c447aac27f5f5d84489, type: 2}
+  - {fileID: 22100000, guid: 65e81838ce6bcaf4ca0b2af7ed4d68fc, type: 2}
+  - {fileID: 22100000, guid: ed000094971641a4ca5c0baa76f48b12, type: 2}
+  - {fileID: 22100000, guid: 2282bf64d4df78b48822c9eb508e89b4, type: 2}
+  - {fileID: 22100000, guid: 63b19e2119d768f42a22550bce13fc30, type: 2}
+  - {fileID: 22100000, guid: 1501ef27d6d46bd4685ba85173a54ee2, type: 2}
+  - {fileID: 22100000, guid: d25cad7197b126a48add42a5562530df, type: 2}
+  - {fileID: 22100000, guid: 0ba88c9ed22168e4aa7a1791ccb1d6a7, type: 2}
+  - {fileID: 22100000, guid: 4b5a3c48b08c39745af34cfd8812bd42, type: 2}
   playerInput: {fileID: 0}
 --- !u!1 &5571360479334798419
 GameObject:
