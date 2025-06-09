@@ -75,10 +75,10 @@ PrefabInstance:
     - target: {fileID: 6031475196044336304, guid: 09861079e23c5cd4a8f4680d20358a91, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -988987052, guid: af62a8e4cf403e54cafeb56806f8e551, type: 3}
+      objectReference: {fileID: 758591994, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
     - target: {fileID: 6509039709296304487, guid: 09861079e23c5cd4a8f4680d20358a91, type: 3}
       propertyPath: m_Name
-      value: BoxWater Variant
+      value: BoxBlue
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

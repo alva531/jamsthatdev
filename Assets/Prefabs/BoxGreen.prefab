@@ -82,7 +82,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7329834150066940637, guid: 35bbf60884f828e42be74b0c07666257, type: 3}
       propertyPath: m_Name
-      value: BoxSeed
+      value: BoxGreen
       objectReference: {fileID: 0}
     - target: {fileID: 7807015028318377738, guid: 35bbf60884f828e42be74b0c07666257, type: 3}
       propertyPath: m_Size.x
@@ -95,7 +95,7 @@ PrefabInstance:
     - target: {fileID: 7807015028318377738, guid: 35bbf60884f828e42be74b0c07666257, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 276574952, guid: eca5cb3d18c238c408c71770bc281243, type: 3}
+      objectReference: {fileID: 962090597, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
     - target: {fileID: 7807015028318377738, guid: 35bbf60884f828e42be74b0c07666257, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1

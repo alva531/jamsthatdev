@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 929120981
   m_SortingLayer: 2
   m_SortingOrder: 3
-  m_Sprite: {fileID: 531816257, guid: 3e3910c772bfaf64ba83302b2bc7e993, type: 3}
+  m_Sprite: {fileID: 1526571463, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 3642483169841564401}
   - component: {fileID: 5372822905826221985}
   m_Layer: 7
-  m_Name: BoxDirt
+  m_Name: BoxPink
   m_TagString: Grabbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

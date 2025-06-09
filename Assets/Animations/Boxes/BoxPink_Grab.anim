@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BoxSeed_Grab
+  m_Name: BoxPink_Grab
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1953376940, guid: eca5cb3d18c238c408c71770bc281243, type: 3}
+      value: {fileID: -1670754902, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1953376940, guid: eca5cb3d18c238c408c71770bc281243, type: 3}
+    - {fileID: -1670754902, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

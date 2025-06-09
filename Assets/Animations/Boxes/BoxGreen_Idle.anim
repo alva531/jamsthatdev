@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BoxDirt_Idle
+  m_Name: BoxGreen_Idle
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,7 +21,7 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 531816257, guid: 3e3910c772bfaf64ba83302b2bc7e993, type: 3}
+      value: {fileID: 962090597, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -44,7 +44,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 531816257, guid: 3e3910c772bfaf64ba83302b2bc7e993, type: 3}
+    - {fileID: 962090597, guid: e04b50a52830a0e4da6f3d4270df7778, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

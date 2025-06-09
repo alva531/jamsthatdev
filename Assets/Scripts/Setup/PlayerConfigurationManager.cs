@@ -13,6 +13,7 @@ public class PlayerConfigurationManager : MonoBehaviour
     [SerializeField] private int MaxPlayers = 2;
     [SerializeField] private TextMeshProUGUI countdownText;
 
+
     public static PlayerConfigurationManager Instance { get; private set; }
 
     private Coroutine countdownCoroutine;
@@ -72,7 +73,6 @@ public class PlayerConfigurationManager : MonoBehaviour
 
         while (count > 0)
         {
-            // Si se desreadya alguien o se une alguien no ready, cancelar
             if (!playerConfigs.All(p => p.IsReady))
             {
                 if (countdownText != null)
@@ -88,11 +88,10 @@ public class PlayerConfigurationManager : MonoBehaviour
             count--;
         }
 
-        // Verificamos nuevamente antes de avanzar
         if (playerConfigs.All(p => p.IsReady))
         {
             if (countdownText != null)
-                countdownText.text = "¡START!";
+                countdownText.text = "Starting...";
 
             yield return new WaitForSeconds(0.5f);
 

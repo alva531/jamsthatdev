@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -108,14 +109,20 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     void NextSkin()
     {
-        currentIndex = (currentIndex + 1) % playerSprites.Length;
-        ApplySkin();
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex].IsReady == false)
+        {
+            currentIndex = (currentIndex + 1) % playerSprites.Length;
+            ApplySkin();
+        }
     }
 
     void PreviousSkin()
     {
-        currentIndex = (currentIndex - 1 + playerSprites.Length) % playerSprites.Length;
-        ApplySkin();
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex].IsReady == false)
+        {
+            currentIndex = (currentIndex - 1 + playerSprites.Length) % playerSprites.Length;
+            ApplySkin();
+        } 
     }
 
     void ApplySkin()
