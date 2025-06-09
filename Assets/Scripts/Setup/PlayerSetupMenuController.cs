@@ -23,7 +23,7 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     [Header ("Player")]
     public Sprite[] playerSprites;
-    public Image playerDisplay; // UI visual del personaje
+    public Image playerDisplay;
     public AnimatorOverrideController[] playerAnimatorSkins;
 
     private int currentIndex = 0;
@@ -83,11 +83,12 @@ public class PlayerSetupMenuController : MonoBehaviour
         if (!inputEnabled) { return; }
 
         PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
-        readyButton.gameObject.SetActive(false);
+        //readyButton.gameObject.SetActive(false);
     }
 
     void Start()
     {
+        PlayerConfigurationManager.Instance.SetPlayerAnim(PlayerIndex, playerAnimatorSkins[currentIndex]);
         UpdateVisual();
     }
 
@@ -96,7 +97,6 @@ public class PlayerSetupMenuController : MonoBehaviour
     if (playerInput == null)
         return Vector2.zero;
 
-    // Asegurate de que la action "Navigate" exista en tu InputActionAsset
     InputAction navigateAction = playerInput.actions["Navigate"];
 
         if (navigateAction != null)
