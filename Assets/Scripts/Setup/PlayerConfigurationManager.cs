@@ -13,10 +13,11 @@ public class PlayerConfigurationManager : MonoBehaviour
     [SerializeField] private int MaxPlayers = 2;
     [SerializeField] private TextMeshProUGUI countdownText;
 
-
     public static PlayerConfigurationManager Instance { get; private set; }
 
     private Coroutine countdownCoroutine;
+
+    [SerializeField] private GameObject _fade;
 
     void Awake()
     {
@@ -92,6 +93,7 @@ public class PlayerConfigurationManager : MonoBehaviour
         {
             if (countdownText != null)
                 countdownText.text = "Starting...";
+            _fade.GetComponent<Animator>().SetTrigger("Out");
 
             yield return new WaitForSeconds(0.5f);
 
@@ -102,15 +104,36 @@ public class PlayerConfigurationManager : MonoBehaviour
         countdownCoroutine = null;
     }
 
+    public void RemovePlayer(int index)
+    {
+        var configToRemove = playerConfigs.FirstOrDefault(p => p.PlayerIndex == index);
+        if (configToRemove != null)
+        {
+            if (configToRemove.Input != null)
+            {
+                Destroy(configToRemove.Input.gameObject);
+            }
+
+            playerConfigs.Remove(configToRemove);
+            Debug.Log($"Player {index} removed.");
+        }
+    }
+
     public void HandlePlayerJoin(PlayerInput pi)
     {
         Debug.Log("Player Joined " + pi.playerIndex);
+
         if (!playerConfigs.Any(p => p.PlayerIndex == pi.playerIndex))
         {
             pi.transform.SetParent(transform);
             playerConfigs.Add(new PlayerConfiguration(pi));
 
-            // Cancelar cuenta si alguien se une sin estar listo
+            var setup = pi.GetComponent<PlayerSetupMenuController>();
+            if (setup != null)
+            {
+                setup.SetPlayerIndex(pi.playerIndex);
+            }
+
             if (countdownCoroutine != null && !playerConfigs.All(p => p.IsReady))
             {
                 StopCoroutine(countdownCoroutine);
