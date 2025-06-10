@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
-using UnityEngine.UI;
 
 
 public class SoundController : MonoBehaviour
@@ -42,23 +40,10 @@ public class SoundController : MonoBehaviour
     [SerializeField] private float minSpeed = 1f;   // Velocidad mínima para oír algo
     [SerializeField] private float maxSpeed = 6f;   // Velocidad máxima = volumen máximo
 
-    [Header("Audio Mixer")]
-    [SerializeField] private AudioMixer myMixer;
-    [SerializeField] private Slider masterSlider;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider sfxSlider;
-
-
-
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.ignoreListenerPause = true;
-
-        SetMasterVolume();
-        SetMusicVolume();
-        SetSFXVolume();
-
     }
 
     public void PickupSFX()
@@ -169,22 +154,6 @@ public class SoundController : MonoBehaviour
         airSoundSource.volume = 0f;
         airSoundSource.Stop();
         isAirSoundPlaying = false;
-    }
-
-    public void SetMasterVolume()
-    {
-        float volume = masterSlider.value;
-        myMixer.SetFloat("Master", Mathf.Log10(volume)*20);
-    }
-    public void SetMusicVolume()
-    {
-        float volume = musicSlider.value;
-        myMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
-    }
-    public void SetSFXVolume()
-    {
-        float volume = sfxSlider.value;
-        myMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
     }
 }
 
