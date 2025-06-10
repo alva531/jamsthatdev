@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
@@ -13,13 +14,35 @@ public class MenuController : MonoBehaviour
     [SerializeField] private bool isPaused;
     [SerializeField] private bool showTutorial = true;
 
+
+
+    [SerializeField] private Button _playButton;
+    [SerializeField] private Animator _playButtonChild;
+    [SerializeField] private Button _creditsButton;
+    [SerializeField] private Animator _creditsButtonChild;
+    [SerializeField] private Button _exitButton;
+    [SerializeField] private Animator _exitButtonChild;
+
+    [SerializeField] private Button _backButton;
+    [SerializeField] private Animator _backButtonChild;
+
     private float duration = 1f;
     private float startScale = 1f;
     private Coroutine currentCoroutine;
 
+    GameObject playerConfig;
+
     void Start()
     {
-
+        try
+        {
+            playerConfig = GameObject.FindWithTag("PlayerConfiguration");
+            Destroy(playerConfig.gameObject);
+        }
+        catch
+        {
+            return;
+        }
     }
 
     void FixedUpdate()
@@ -84,22 +107,34 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        SceneManager.LoadScene("Valve");
+        _playButton.GetComponent<Animator>().SetTrigger("Press");
+        _playButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+        SceneManager.LoadScene("CharacterSelection");
     }
 
-    public void LoadCoopGame()
+    public void ExitGame()
     {
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        SceneManager.LoadScene("Valve2Coop");
+        _exitButton.GetComponent<Animator>().SetTrigger("Press");
+        _exitButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+        Debug.Log(_exitButton.GetComponentInChildren<Animator>());
+        Application.Quit();
     }
+
+    // public void LoadCoopGame()
+    // {
+    //     Time.timeScale = 1f;
+    //     Cursor.lockState = CursorLockMode.Locked;
+    //     Cursor.visible = false;
+    //     SceneManager.LoadScene("Valve2Coop");
+    // }
 
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        _backButton.GetComponent<Animator>().SetTrigger("Press");
+        _backButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -108,6 +143,8 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        _creditsButton.GetComponent<Animator>().SetTrigger("Press");
+        _creditsButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
         SceneManager.LoadScene("Credits");
     }
     private IEnumerator SlowDownTime()
