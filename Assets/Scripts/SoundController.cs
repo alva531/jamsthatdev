@@ -26,9 +26,6 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioSource boxhitSource;
     [SerializeField] private AudioSource doorSource;
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource menuSoundSource;
-
-
 
     [SerializeField] private float fadeDuration = 0.5f;
     [SerializeField] private float airMaxVolume = 0.5f;
@@ -41,8 +38,8 @@ public class SoundController : MonoBehaviour
 
     [SerializeField] private float minVolume = 0.1f;
     [SerializeField] private float maxVolume = 1.0f;
-    [SerializeField] private float minSpeed = 1f;   // Velocidad m√≠nima para o√≠r algo
-    [SerializeField] private float maxSpeed = 6f;   // Velocidad m√°xima = volumen m√°ximo
+    [SerializeField] private float minSpeed = 1f;   // Velocidad mÌnima para oÌr algo
+    [SerializeField] private float maxSpeed = 6f;   // Velocidad m·xima = volumen m·ximo
 
     void Start()
     {
@@ -107,7 +104,7 @@ public class SoundController : MonoBehaviour
 
     public void SetAirSFXActive(bool active)
     {
-        // Si se est√° pidiendo sonar
+        // Si se est· pidiendo sonar
         if (active)
         {
             if (airFadeCoroutine != null)
@@ -126,7 +123,7 @@ public class SoundController : MonoBehaviour
     {
         isAirSoundPlaying = true;
 
-        // Asegurarse que est√© sonando
+        // Asegurarse que estÈ sonando
         if (!airSoundSource.isPlaying)
             airSoundSource.Play();
 
@@ -160,3 +157,5 @@ public class SoundController : MonoBehaviour
         isAirSoundPlaying = false;
     }
 }
+
+

@@ -19,7 +19,7 @@ public class BoxObstacleController : MonoBehaviour
     if (collision.gameObject.CompareTag("Ship"))
     {
         float relativeSpeed = collision.relativeVelocity.magnitude;
-        soundController.ThudSFX(relativeSpeed);
+            soundController.ThudSFX(relativeSpeed);
 
         if (relativeSpeed > 0.01f)
         {
