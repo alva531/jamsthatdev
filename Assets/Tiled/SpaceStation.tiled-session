@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "Level1.tmx",
+    "activeFile": "Level1-SinglePlayer.tmx",
     "expandedProjectPaths": [
     ],
     "file.lastUsedOpenFilter": "Todos los archivos (*)",
@@ -16,6 +16,28 @@
                 "y": -26.66666666666663
             }
         },
+        "Level1-Coop 1.tmx": {
+            "expandedObjectLayers": [
+                11
+            ],
+            "scale": 3,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 102.83333333333334,
+                "y": -774.3333333333333
+            }
+        },
+        "Level1-SinglePlayer.tmx": {
+            "expandedObjectLayers": [
+                11
+            ],
+            "scale": 0.75,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": -242,
+                "y": -821.3333333333333
+            }
+        },
         "Level1.tmx": {
             "scale": 0.5,
             "selectedLayer": -1,
@@ -23,6 +45,9 @@
                 "x": -71,
                 "y": -188
             }
+        },
+        "SpecialTiles.tsx": {
+            "scaleInDock": 1
         },
         "space.tsx": {
             "scaleInDock": 1,
@@ -41,10 +66,13 @@
     "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "Level1.tmx"
+        "Level1-SinglePlayer.tmx",
+        "Level1-Coop 1.tmx"
     ],
     "project": "SpaceStation.tiled-project",
     "recentFiles": [
+        "Level1-Coop 1.tmx",
+        "Level1-SinglePlayer.tmx",
         "Level1.tmx",
         "space.tsx",
         "Level1 - copia.tmx",
