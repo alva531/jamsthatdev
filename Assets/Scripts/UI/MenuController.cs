@@ -43,6 +43,11 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
+
+        if (isPaused = true)
+        {
+            isPaused = false;
+        }
     }
 
     void FixedUpdate()
@@ -92,7 +97,7 @@ public class MenuController : MonoBehaviour
             showTutorial = !showTutorial;
 
             if (showTutorial == true)
-            { 
+            {
                 tutorialUI.gameObject.SetActive(true);
             }
             if (showTutorial == false)
