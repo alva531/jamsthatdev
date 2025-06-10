@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4234976852669749583, guid: 09861079e23c5cd4a8f4680d20358a91, type: 3}
       propertyPath: m_TagString
-      value: Water
+      value: Blue
       objectReference: {fileID: 0}
     - target: {fileID: 5347521784084935709, guid: 09861079e23c5cd4a8f4680d20358a91, type: 3}
       propertyPath: m_Size.x

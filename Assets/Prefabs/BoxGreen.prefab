@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 372010346495415029, guid: 35bbf60884f828e42be74b0c07666257, type: 3}
       propertyPath: m_TagString
-      value: Seed
+      value: Green
       objectReference: {fileID: 0}
     - target: {fileID: 2524947484010031666, guid: 35bbf60884f828e42be74b0c07666257, type: 3}
       propertyPath: m_LocalScale.x

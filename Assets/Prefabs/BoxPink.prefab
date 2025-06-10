@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2982297934309309019}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Dirt
+  m_TagString: Pink
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

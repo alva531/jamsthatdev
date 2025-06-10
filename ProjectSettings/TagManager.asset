@@ -15,6 +15,9 @@ TagManager:
   - Fade
   - Plant
   - PlayerConfiguration
+  - Pink
+  - Blue
+  - Green
   layers:
   - Default
   - TransparentFX
