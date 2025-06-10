@@ -775,7 +775,7 @@ GameObject:
   - component: {fileID: 698745985}
   - component: {fileID: 698745984}
   - component: {fileID: 698745983}
-  m_Layer: 5
+  m_Layer: 1
   m_Name: Fade
   m_TagString: Fade
   m_Icon: {fileID: 0}
@@ -836,7 +836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1203,6 +1203,8 @@ GameObject:
   - component: {fileID: 1284850850}
   - component: {fileID: 1284850849}
   - component: {fileID: 1284850848}
+  - component: {fileID: 1284850853}
+  - component: {fileID: 1284850854}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1226,7 +1228,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 35
 --- !u!114 &1284850849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1324,6 +1326,32 @@ MonoBehaviour:
   _exitButtonChild: {fileID: 1181183287}
   _backButton: {fileID: 0}
   _backButtonChild: {fileID: 0}
+--- !u!114 &1284850853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284850847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811ac064f0c01ca4c87a498d477af874, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1284850854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1284850847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1f4be57c8ece6459baffcebd8c9bf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultTexture: {fileID: 2800000, guid: 130480a91cd7df848a65ff6a2787b732, type: 3}
+  clickTexture: {fileID: 2800000, guid: 4ab94b3f69bca274d9c94b18276f7557, type: 3}
 --- !u!1 &1791280779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1486,7 +1514,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.14901961, g: 0.16470589, b: 0.2392157, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

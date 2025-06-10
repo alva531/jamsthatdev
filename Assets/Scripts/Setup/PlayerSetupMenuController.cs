@@ -20,7 +20,7 @@ public class PlayerSetupMenuController : MonoBehaviour
     [SerializeField]
     Button readyButton;
 
-    float ignoreInputTime = 1f;
+    float ignoreInputTime = 0.5f;
     bool inputEnabled;
 
     [Header ("Player")]
