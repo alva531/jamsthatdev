@@ -12,16 +12,13 @@ EditorBuildSettings:
     path: Assets/Scenes/CharacterSelection.unity
     guid: 17b9a13a980730542b092a7c0c419b27
   - enabled: 1
-    path: Assets/Scenes/Sigleplayer Levels/Valve.unity
-    guid: 69caa3e969127b443a685d037e64a0bc
+    path: Assets/Scenes/Sigleplayer Levels/Valve 1.unity
+    guid: 94552d6515976d142af85687121615a3
   - enabled: 1
     path: Assets/Scenes/Coop Levels/CoopInput.unity
     guid: 6772db9cd0f0b9e4a8d016a6e7cbd381
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 0e9afdac9a93d4444bdc7db865af84fc
-  - enabled: 1
-    path: Assets/Scenes/Sigleplayer Levels/Valve 1.unity
-    guid: 94552d6515976d142af85687121615a3
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 046b9714b896c8e4d97817356fa2f8e7, type: 2}

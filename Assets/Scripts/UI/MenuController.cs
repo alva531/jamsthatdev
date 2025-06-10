@@ -32,6 +32,8 @@ public class MenuController : MonoBehaviour
 
     GameObject playerConfig;
 
+    GameObject _fade;
+
     void Start()
     {
         try
@@ -67,6 +69,11 @@ public class MenuController : MonoBehaviour
             {
                 ResumeGame();
             }
+        }
+
+        if (_fade == null)
+        {
+            _fade = GameObject.FindWithTag("Fade");
         }
     }
 
@@ -114,6 +121,13 @@ public class MenuController : MonoBehaviour
         Cursor.visible = false;
         _playButton.GetComponent<Animator>().SetTrigger("Press");
         _playButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+        StartCoroutine(GameFade());
+    }
+
+    private IEnumerator GameFade()
+    {
+        _fade.GetComponent<Animator>().SetTrigger("Out");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("CharacterSelection");
     }
 
@@ -140,6 +154,12 @@ public class MenuController : MonoBehaviour
         Cursor.visible = true;
         _backButton.GetComponent<Animator>().SetTrigger("Press");
         _backButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+        StartCoroutine(MenuFade());
+    }
+    private IEnumerator MenuFade()
+    {
+        _fade.GetComponent<Animator>().SetTrigger("Out");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -150,8 +170,16 @@ public class MenuController : MonoBehaviour
         Cursor.visible = true;
         _creditsButton.GetComponent<Animator>().SetTrigger("Press");
         _creditsButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+        StartCoroutine(CreditsFade());
+    }
+
+    private IEnumerator CreditsFade()
+    {
+        _fade.GetComponent<Animator>().SetTrigger("Out");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("Credits");
     }
+
     private IEnumerator SlowDownTime()
     {
         float elapsed = 0f;

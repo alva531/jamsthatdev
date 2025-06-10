@@ -20,11 +20,11 @@
             "expandedObjectLayers": [
                 11
             ],
-            "scale": 3,
-            "selectedLayer": 4,
+            "scale": 0.75,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 102.83333333333334,
-                "y": -774.3333333333333
+                "x": -248.66666666666663,
+                "y": -249.33333333333326
             }
         },
         "Level1-SinglePlayer.tmx": {
@@ -32,10 +32,10 @@
                 11
             ],
             "scale": 0.75,
-            "selectedLayer": 4,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": -242,
-                "y": -821.3333333333333
+                "x": -495.33333333333326,
+                "y": -110.66666666666663
             }
         },
         "Level1.tmx": {
@@ -54,7 +54,7 @@
             "scaleInEditor": 1
         },
         "tileset1.tsx": {
-            "scaleInDock": 2,
+            "scaleInDock": 1.5,
             "scaleInEditor": 3
         },
         "tileset2.tsx": {
