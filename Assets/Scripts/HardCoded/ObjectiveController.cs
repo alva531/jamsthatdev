@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class ObjectiveController : MonoBehaviour
 {
     public int totalBox = 0;
+
+    public int totalBoxObjective;
     [SerializeField] GameObject door;
     [SerializeField] GameObject doorCollider;
     bool doorClosed = true;
@@ -30,7 +32,7 @@ public class ObjectiveController : MonoBehaviour
                 doorClosed = false;
             }
         }
-        if (totalBox >= 9)
+        if (totalBox >= totalBoxObjective)
         {
             Debug.Log("GAME OVER");
             StartCoroutine(FinishGame());

@@ -870,6 +870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalBox: 0
+  totalBoxObjective: 9
   door: {fileID: 1731728152}
   doorCollider: {fileID: 1731728151}
 --- !u!4 &134121901 stripped
