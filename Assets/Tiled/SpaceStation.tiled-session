@@ -20,22 +20,22 @@
             "expandedObjectLayers": [
                 11
             ],
-            "scale": 0.75,
-            "selectedLayer": 5,
+            "scale": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": -248.66666666666663,
-                "y": -249.33333333333326
+                "x": -47.5,
+                "y": -817
             }
         },
         "Level1-SinglePlayer.tmx": {
             "expandedObjectLayers": [
                 11
             ],
-            "scale": 0.75,
-            "selectedLayer": 5,
+            "scale": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": -495.33333333333326,
-                "y": -110.66666666666663
+                "x": -383.25,
+                "y": -822
             }
         },
         "Level1.tmx": {
