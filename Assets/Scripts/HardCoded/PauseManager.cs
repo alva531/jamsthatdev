@@ -15,6 +15,8 @@ public class PauseManager : MonoBehaviour
 
     [SerializeField] private bool isPaused = false;
 
+    [SerializeField] private Button resumeButton;
+
     private float duration = 1f;
     private float startScale = 1f;
 
@@ -53,6 +55,7 @@ public class PauseManager : MonoBehaviour
         pauseUI.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        resumeButton.Select();
         currentCoroutine = StartCoroutine(SlowDownTime());
     }
 
@@ -72,7 +75,6 @@ public class PauseManager : MonoBehaviour
         pauseUI.SetActive(false);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
         if (currentCoroutine != null)
             StopCoroutine(currentCoroutine);
 
@@ -81,9 +83,13 @@ public class PauseManager : MonoBehaviour
 
     private IEnumerator LoadMenuRoutine()
     {
+        Animator fade = GameObject.FindWithTag("Fade").GetComponent<Animator>();
         yield return StartCoroutine(SpeedUpTime());
 
         Time.timeScale = 1f;
+
+        fade.SetTrigger("Out");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -116,4 +122,5 @@ public class PauseManager : MonoBehaviour
 
         Time.timeScale = 1f;
     }
+    
 }

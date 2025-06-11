@@ -18,13 +18,16 @@ public class MenuController : MonoBehaviour
 
     [SerializeField] private Button _playButton;
     [SerializeField] private Animator _playButtonChild;
-    [SerializeField] private Button _creditsButton;
-    [SerializeField] private Animator _creditsButtonChild;
+    [SerializeField] private Button _settingsButton;
+    [SerializeField] private Animator _settingsButtonChild;
     [SerializeField] private Button _exitButton;
     [SerializeField] private Animator _exitButtonChild;
 
     [SerializeField] private Button _backButton;
     [SerializeField] private Animator _backButtonChild;
+
+    [SerializeField] private Button _creditsButton;
+
 
     private float duration = 1f;
     private float startScale = 1f;
@@ -163,13 +166,19 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void OpenSettings()
+    {
+        _settingsButton.GetComponent<Animator>().SetTrigger("Press");
+        _settingsButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+        _creditsButton.Select();
+    }
+    
+
     public void LoadCredits()
     {
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        _creditsButton.GetComponent<Animator>().SetTrigger("Press");
-        _creditsButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
         StartCoroutine(CreditsFade());
     }
 

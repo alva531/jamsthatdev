@@ -162,9 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eced002ce38fe604583e23571c45d615, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 0.2
-  angle: 100
-  rayCount: 8
+  distance: 0.25
+  angle: 140
+  rayCount: 10
   grabbableMask:
     serializedVersion: 2
     m_Bits: 128
