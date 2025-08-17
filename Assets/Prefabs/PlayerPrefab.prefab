@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6666809433711347420}
-  pushAmount: 0.3
-  maxSpeed: 3
+  pushAmount: 0.5
+  maxSpeed: 4
   jetpackParticle: {fileID: 364790034125933067}
   soundController: {fileID: 0}
   spriteRenderer: {fileID: 9171178991482638526}

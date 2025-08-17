@@ -26,7 +26,7 @@ public class BoxObstacleController : MonoBehaviour
             Vector2 knockbackDir = collision.contacts[0].normal;
             
             Rigidbody2D rb = GetComponent<Rigidbody2D>();
-            float knockbackForce = 0.03f;
+            float knockbackForce = 0.2f;
             rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
         }
     }

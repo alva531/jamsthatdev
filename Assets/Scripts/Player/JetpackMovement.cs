@@ -68,7 +68,7 @@ public class JetpackMovement : MonoBehaviour
 
         if (rb.velocity.magnitude < 0.01f)
         {
-            rb.velocity = Vector2.zero;
+            //rb.velocity = Vector2.zero; xxTomiAcuxx Fix
         }
         else if (rb.velocity.magnitude > maxSpeed)
         {
