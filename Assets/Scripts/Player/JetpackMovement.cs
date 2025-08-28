@@ -19,7 +19,7 @@ public class JetpackMovement : MonoBehaviour
 
     void Start()
     {
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponentInChildren<Animator>();
         soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
     }
@@ -55,6 +55,15 @@ public class JetpackMovement : MonoBehaviour
             jetpackParticle.PSEmission(force);
             spriteRenderer.flipX = horizontalInput < -0.01f;
 
+            // if (horizontalInput < -0.01f)
+            // {
+            //     spriteRenderer.flipX = true;
+            // }
+            // else if (horizontalInput > 0.01f)
+            // {
+            //     spriteRenderer.flipX = false;
+            // }
+
             if (verticalInput > 0.01f)
                 _animator.SetTrigger("Up");
             else if (verticalInput < -0.01f)
@@ -87,7 +96,48 @@ public class JetpackMovement : MonoBehaviour
             {
                 Vector2 knockbackDir = other.contacts[0].normal;
                 rb.AddForce(knockbackDir * 0.05f, ForceMode2D.Impulse);
+
+                //StartCoroutine(ImpactSquash(relativeSpeed, knockbackDir));
             }
+        }
+    }
+
+    
+
+    // ChatGPT esto es exagerado y espameable 
+
+    private IEnumerator ImpactSquash(float impactForce, Vector2 hitNormal)
+    {
+        // El squash depende de la fuerza del golpe, con un límite
+        float squashAmount = Mathf.Clamp(impactForce * 0.1f, 0.1f, 0.4f);
+
+        // Si el impacto fue lateral, aplastamos en X, si fue vertical, en Y
+        bool lateralHit = Mathf.Abs(hitNormal.x) > Mathf.Abs(hitNormal.y);
+
+        Vector3 targetScale = lateralHit
+            ? new Vector3(1f - squashAmount, 1f + squashAmount, 1f) // aplasta en X
+            : new Vector3(1f + squashAmount, 1f - squashAmount, 1f); // aplasta en Y
+
+        Vector3 originalScale = transform.localScale;
+
+        float t = 0f;
+        float squashDuration = 0.15f;
+
+        // Ir hacia el squash
+        while (t < 1f)
+        {
+            t += Time.deltaTime / squashDuration;
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, t);
+            yield return null;
+        }
+
+        // Volver al tamaño original
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / squashDuration;
+            transform.localScale = Vector3.Lerp(targetScale, originalScale, t);
+            yield return null;
         }
     }
 }

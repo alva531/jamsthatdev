@@ -5,19 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Grabbable
-  - Pot
-  - Dirt
-  - Seed
-  - Water
-  - Steve
   - Ship
   - SoundController
   - Fade
-  - Plant
   - PlayerConfiguration
   - Pink
   - Blue
   - Green
+  - Lever
   layers:
   - Default
   - TransparentFX
@@ -28,7 +23,7 @@ TagManager:
   - Player
   - Grabbable
   - GrabbableHeld
-  - 
+  - ParedPortal
   - 
   - 
   - 

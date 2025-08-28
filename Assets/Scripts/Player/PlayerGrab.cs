@@ -29,7 +29,7 @@ public class PlayerGrab : MonoBehaviour
           |   /wwwwww\\//wwwwww\hjw|
     */
 
-     [Header("Grab Settings")]
+    [Header("Grab Settings")]
     public float distance = 3f;
     public float angle = 60f;
     public int rayCount = 8;
@@ -40,6 +40,9 @@ public class PlayerGrab : MonoBehaviour
     private GameObject heldObject;
     private int _direction;
     private bool isGrabbing;
+
+    // Para saber si lo que agarramos es palanca
+    private LeverController heldLever;
 
     public void TryGrab(bool isPressed)
     {
@@ -68,37 +71,66 @@ public class PlayerGrab : MonoBehaviour
                 RaycastHit2D hit = Physics2D.Raycast(rayOrigin.position, dir, distance, grabbableMask);
                 Debug.DrawRay(rayOrigin.position, dir * distance, Color.red);
 
-                if (hit.collider != null && hit.collider.CompareTag("Grabbable"))
+                if (hit.collider != null)
                 {
-                    heldObject = hit.collider.gameObject;
+                    // ---- Grabbable (cajas) ----
+                    if (hit.collider.CompareTag("Grabbable"))
+                    {
+                        heldObject = hit.collider.gameObject;
+                        heldLever = null;
 
-                    FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
-                    joint.connectedBody = GetComponent<Rigidbody2D>();
-                    joint.enabled = true;
+                        FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
+                        joint.connectedBody = GetComponent<Rigidbody2D>();
+                        joint.enabled = true;
 
-                    Rigidbody2D heldRb = heldObject.GetComponent<Rigidbody2D>();
-                    Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
-                    heldRb.velocity = playerRb.velocity;
+                        Rigidbody2D heldRb = heldObject.GetComponent<Rigidbody2D>();
+                        Rigidbody2D playerRb = GetComponent<Rigidbody2D>();
+                        heldRb.velocity = playerRb.velocity;
 
-                    var anim = heldObject.GetComponentInChildren<Animator>();
-                    if (anim != null) anim.SetBool("Grab", true);
+                        var anim = heldObject.GetComponentInChildren<Animator>();
+                        if (anim != null) anim.SetBool("Grab", true);
 
-                    jetpackMovement.soundController.BoxGrabSFX();
-                    break;
+                        jetpackMovement.soundController.BoxGrabSFX();
+                        break;
+                    }
+
+                    // ---- Lever (palancas) ----
+                    if (hit.collider.CompareTag("Lever"))
+                    {
+                        heldObject = hit.collider.gameObject;
+                        heldLever = heldObject.GetComponent<LeverController>();
+
+                        if (heldLever != null)
+                        {
+                            heldLever.Grab(transform); // Le pasamos el transform del jugador
+                            jetpackMovement.soundController.BoxGrabSFX();
+                        }
+
+                        break;
+                    }
                 }
             }
         }
 
+        // ---- Soltar ----
         if (heldObject != null && !isGrabbing)
         {
-            FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
-            joint.enabled = false;
-            joint.connectedBody = null;
+            if (heldObject.CompareTag("Grabbable"))
+            {
+                FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
+                joint.enabled = false;
+                joint.connectedBody = null;
 
-            var anim = heldObject.GetComponentInChildren<Animator>();
-            if (anim != null) anim.SetBool("Grab", false);
+                var anim = heldObject.GetComponentInChildren<Animator>();
+                if (anim != null) anim.SetBool("Grab", false);
+            }
+            else if (heldObject.CompareTag("Lever") && heldLever != null)
+            {
+                heldLever.Release();
+            }
 
             heldObject = null;
+            heldLever = null;
         }
     }
 

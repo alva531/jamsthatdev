@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="1" nextlayerid="12" nextobjectid="120">
+<map version="1.10" tiledversion="1.11.2" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" infinite="1" nextlayerid="15" nextobjectid="123">
  <tileset firstgid="1" source="tileset1.tsx"/>
  <tileset firstgid="101" source="tileset2.tsx"/>
  <tileset firstgid="201" source="SpecialTiles.tsx"/>
@@ -593,4 +593,33 @@
    <polygon points="0,0 192,0 192,64 224,64 224,128 0,128"/>
   </object>
  </objectgroup>
+ <group id="13" name="Botones">
+  <objectgroup id="12" name="PortalCajasCollider">
+   <object id="122" x="-448" y="-928" width="32" height="96">
+    <polygon points="2,0 26,0 26,96 2,96"/>
+   </object>
+  </objectgroup>
+  <layer id="14" name="Botones" width="30" height="20">
+   <data encoding="csv">
+    <chunk x="-16" y="-32" width="16" height="16">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1610612770,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1610612770,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,1610612770,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</chunk>
+   </data>
+  </layer>
+ </group>
 </map>
