@@ -11,14 +11,16 @@ public class LeverController : MonoBehaviour
 
     private HingeJoint2D hinge;
     private Rigidbody2D rb;
-    private TargetJoint2D grabJoint;
 
     [SerializeField] private float tolerance = 2f;
     private bool minInvoked = false;
     private bool maxInvoked = false;
 
-    // 👇 referencia al jugador cuando agarra la palanca
     private Transform player;
+    private SpringJoint2D springJoint;
+    private bool isGrabbed = false;
+
+    [SerializeField] float rotationSpeed = 180f;
 
     private void Awake()
     {
@@ -26,12 +28,31 @@ public class LeverController : MonoBehaviour
         hinge = GetComponent<HingeJoint2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        float angle = transform.localEulerAngles.z;
-        if (angle > 180) angle -= 360; // convertir a [-180,180]
+        if (isGrabbed && player != null)
+        {
+            // Dirección del player relativa al pivot de la palanca
+            Vector2 localDir = transform.InverseTransformPoint(player.position);
 
-        if (Mathf.Abs(angle - hinge.limits.min) <= tolerance)
+            // Ángulo deseado en grados, invertido
+            float targetAngle = -Mathf.Atan2(localDir.y, localDir.x) * Mathf.Rad2Deg;
+
+            // Limitamos según los límites del HingeJoint2D
+            targetAngle = Mathf.Clamp(targetAngle, hinge.limits.min, hinge.limits.max);
+
+            // Interpolamos suavemente hacia el ángulo deseado
+            float newAngle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotationSpeed * Time.fixedDeltaTime);
+
+            // Aplicamos rotación suavizada
+            rb.MoveRotation(newAngle);
+        }
+
+        // Chequeo de eventos
+        float currentAngle = transform.localEulerAngles.z;
+        if (currentAngle > 180) currentAngle -= 360;
+
+        if (Mathf.Abs(currentAngle - hinge.limits.min) <= tolerance)
         {
             if (!minInvoked)
             {
@@ -40,7 +61,7 @@ public class LeverController : MonoBehaviour
                 maxInvoked = false;
             }
         }
-        else if (Mathf.Abs(angle - hinge.limits.max) <= tolerance)
+        else if (Mathf.Abs(currentAngle - hinge.limits.max) <= tolerance)
         {
             if (!maxInvoked)
             {
@@ -59,40 +80,28 @@ public class LeverController : MonoBehaviour
     public void Grab(Transform playerTransform)
     {
         player = playerTransform;
+        isGrabbed = true;
 
-        if (grabJoint == null)
+        if (springJoint == null)
         {
-            grabJoint = gameObject.AddComponent<TargetJoint2D>();
-            grabJoint.autoConfigureTarget = false;
-            grabJoint.maxForce = 700f;
-            grabJoint.dampingRatio = 0.9f;
-            grabJoint.frequency = 2f;
+            springJoint = gameObject.AddComponent<SpringJoint2D>();
+            springJoint.connectedBody = player.GetComponent<Rigidbody2D>();
+            springJoint.autoConfigureDistance = false;
+            springJoint.distance = 0.25f;
+            springJoint.dampingRatio = 0.8f;
+            springJoint.frequency = 5f;
         }
-
-        grabJoint.target = player.position;
     }
 
     public void Release()
     {
-        if (grabJoint != null)
+        if (springJoint != null)
         {
-            Destroy(grabJoint);
-            grabJoint = null;
+            Destroy(springJoint);
+            springJoint = null;
         }
 
         player = null;
-    }
-
-    private void FixedUpdate()
-    {
-        if (grabJoint != null && player != null)
-        {
-            // 👇 suavizado para que no "salte" directo
-            grabJoint.target = Vector2.Lerp(
-                grabJoint.target,
-                player.position,
-                Time.fixedDeltaTime * 10f
-            );
-        }
+        isGrabbed = false;
     }
 }
