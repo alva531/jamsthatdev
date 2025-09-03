@@ -20,35 +20,87 @@ public class LeverController : MonoBehaviour
     private SpringJoint2D springJoint;
     private bool isGrabbed = false;
 
-    [SerializeField] float rotationSpeed = 180f;
+    [SerializeField] private float rotationSpeed = 180f;
 
-    private void Awake()
+    [Header("Opciones")]
+    [Tooltip("Si está activado, la palanca rota invertida respecto al jugador")]
+    [SerializeField] private bool invertRotation = false;
+
+    [SerializeField] float angleOffset;
+
+    Transform leverAng;
+
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         hinge = GetComponent<HingeJoint2D>();
+
+        leverAng = transform.GetChild(0);;
     }
 
-    private void FixedUpdate()
+    void Start()
+    {
+        float zRot = Mathf.Round(leverAng.localEulerAngles.z);
+
+        if (Mathf.Approximately(zRot, 90f))
+        {
+            GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.04f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(-0.15f, 0f);
+
+            invertRotation = true;
+            angleOffset = 0;
+        }
+        else if (Mathf.Approximately(zRot, 270f))
+        {
+            GetComponent<BoxCollider2D>().size = new Vector2(0.2f, 0.04f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0.15f, 0f);
+
+            invertRotation = false;
+            angleOffset = 0;
+        }
+        else if (Mathf.Approximately(zRot, 0f))
+        {
+            GetComponent<BoxCollider2D>().size = new Vector2(0.04f, 0.2f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0f, 0.15f);
+
+            invertRotation = false;
+            angleOffset = 90;
+        }
+        else if (Mathf.Approximately(zRot, 180f))
+        {
+            GetComponent<BoxCollider2D>().size = new Vector2(0.04f, 0.2f);
+            GetComponent<BoxCollider2D>().offset = new Vector2(0f, -0.15f);
+
+            invertRotation = false;
+            angleOffset = -90;
+        }
+    }
+
+    void FixedUpdate()
     {
         if (isGrabbed && player != null)
         {
-            // Dirección del player relativa al pivot de la palanca
-            Vector2 localDir = transform.InverseTransformPoint(player.position);
+            Vector2 dir = (player.position - transform.position).normalized;
 
-            // Ángulo deseado en grados, invertido
-            float targetAngle = -Mathf.Atan2(localDir.y, localDir.x) * Mathf.Rad2Deg;
+            float targetAngle;
+            if (invertRotation)
+            {
+                targetAngle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
+            }
+            else
+            {
+                targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            }
 
-            // Limitamos según los límites del HingeJoint2D
+            targetAngle -= angleOffset;
+
             targetAngle = Mathf.Clamp(targetAngle, hinge.limits.min, hinge.limits.max);
 
-            // Interpolamos suavemente hacia el ángulo deseado
             float newAngle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotationSpeed * Time.fixedDeltaTime);
 
-            // Aplicamos rotación suavizada
             rb.MoveRotation(newAngle);
         }
 
-        // Chequeo de eventos
         float currentAngle = transform.localEulerAngles.z;
         if (currentAngle > 180) currentAngle -= 360;
 
@@ -87,7 +139,7 @@ public class LeverController : MonoBehaviour
             springJoint = gameObject.AddComponent<SpringJoint2D>();
             springJoint.connectedBody = player.GetComponent<Rigidbody2D>();
             springJoint.autoConfigureDistance = false;
-            springJoint.distance = 0.25f;
+            springJoint.distance = 0.35f;
             springJoint.dampingRatio = 0.8f;
             springJoint.frequency = 5f;
         }

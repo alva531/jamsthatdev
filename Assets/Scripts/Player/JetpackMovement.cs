@@ -10,6 +10,8 @@ public class JetpackMovement : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private JetpackParticle jetpackParticle;
 
+    public Vector2 InputDirection { get; private set; }
+
     public SoundController soundController;
 
     public SpriteRenderer spriteRenderer;
