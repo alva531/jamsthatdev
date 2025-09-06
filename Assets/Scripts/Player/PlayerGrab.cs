@@ -102,8 +102,11 @@ public class PlayerGrab : MonoBehaviour
 
                         if (heldLever != null)
                         {
-                            heldLever.Grab(transform); // Le pasamos el transform del jugador
+                            heldLever.Grab(transform);   // SpringJoint2D en la palanca se conecta al player
                             jetpackMovement.soundController.BoxGrabSFX();
+
+                            var anim = heldObject.GetComponentInChildren<Animator>();
+                            if (anim != null) anim.SetBool("Grab", true);
                         }
 
                         break;
@@ -124,9 +127,11 @@ public class PlayerGrab : MonoBehaviour
                 var anim = heldObject.GetComponentInChildren<Animator>();
                 if (anim != null) anim.SetBool("Grab", false);
             }
-            else if (heldObject.CompareTag("Lever") && heldLever != null)
+           else if (heldObject.CompareTag("Lever") && heldLever != null)
             {
-                heldLever.Release();
+                heldLever.Release();   // ✅ ahora liberamos el control
+                var anim = heldObject.GetComponentInChildren<Animator>();
+                if (anim != null) anim.SetBool("Grab", false);
             }
 
             heldObject = null;

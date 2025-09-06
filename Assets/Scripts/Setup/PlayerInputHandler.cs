@@ -9,8 +9,11 @@ public class PlayerInputHandler : MonoBehaviour
     private JetpackMovement jetpackMovement;
     private PlayerGrab playerGrab;
 
-    [SerializeField]
-    Animator playerAnim;
+    [Header("Player Animators")]
+    [SerializeField] Animator bodyAnimator;
+    [SerializeField] Animator headAnimator;
+    [SerializeField] Animator legsAnimator;
+    [SerializeField] Animator jetpackAnimator;
 
     InputActions playerControls;
 
@@ -25,22 +28,30 @@ public class PlayerInputHandler : MonoBehaviour
     public void InitializePlayer(PlayerConfiguration pc)
     {
         playerConfig = pc;
-        playerAnim.runtimeAnimatorController = pc.PlayerSkin;
+
+        if (bodyAnimator != null)
+            bodyAnimator.runtimeAnimatorController = pc.BodySkin;
+
+        if (headAnimator != null)
+            headAnimator.runtimeAnimatorController = pc.HeadSkin;
+
+        if (legsAnimator != null)
+            legsAnimator.runtimeAnimatorController = pc.LegsSkin;
+
+        if (jetpackAnimator != null)
+            jetpackAnimator.runtimeAnimatorController = pc.JetpackSkin;
+
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 
     void Input_onActionTriggered(CallbackContext obj)
     {
         if (obj.action.name == playerControls.Player.Move.name)
-        {
             OnMove(obj);
-        }
-        if (obj.action.name == playerControls.Player.Grab.name)
-        {
-            OnGrab(obj);
-        }
-    }
 
+        if (obj.action.name == playerControls.Player.Grab.name)
+            OnGrab(obj);
+    }
 
     public void OnMove(CallbackContext context)
     {

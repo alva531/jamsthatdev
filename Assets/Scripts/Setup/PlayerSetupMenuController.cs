@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,133 +7,154 @@ using UnityEngine.UI;
 public class PlayerSetupMenuController : MonoBehaviour
 {
     int PlayerIndex;
-    [SerializeField]
-    TextMeshProUGUI titleText;
-    [SerializeField]
-    GameObject readyPanel;
-    [SerializeField]
-    GameObject menuPanel;
 
-    [SerializeField]
-    Button readyButton;
+    [Header("UI References")]
+    [SerializeField] TextMeshProUGUI titleText;
+    [SerializeField] GameObject readyPanel;
+    [SerializeField] GameObject menuPanel;
+    [SerializeField] Button readyButton;
 
-    float ignoreInputTime = 0.5f;
-    bool inputEnabled;
+    [SerializeField] GameObject _keyboardUI;
+    [SerializeField] GameObject _gamepadUI;
 
-    [Header ("Player")]
-    public Sprite[] playerSprites;
-    public Image playerDisplay;
-    public AnimatorOverrideController[] playerAnimatorSkins;
+    [Header("Selector de Parte Activa")]
+    [SerializeField] RectTransform partSelector;
+    [SerializeField] Vector3[] partSelectorPositions; 
 
-    private int currentIndex = 0;
+    [Header("Player Preview (Images en la escena)")]
+    [SerializeField] Image bodyDisplay;
+    [SerializeField] Image headDisplay;
+    [SerializeField] Image legsDisplay;
+    [SerializeField] Image jetpackDisplay;
+
+    [Header("Preview Sprites")]
+    [SerializeField] Sprite[] bodySprites;
+    [SerializeField] Sprite[] headSprites;
+    [SerializeField] Sprite[] legsSprites;
+    [SerializeField] Sprite[] jetpackSprites;
+
+    [Header("Player Parts Skins")]
+    public AnimatorOverrideController[] bodySkins;
+    public AnimatorOverrideController[] headSkins;
+    public AnimatorOverrideController[] legsSkins;
+    public AnimatorOverrideController[] jetpackSkins;
+
+    private int currentBodyIndex = 0;
+    private int currentHeadIndex = 0;
+    private int currentLegsIndex = 0;
+    private int currentJetpackIndex = 0;
+
+    private enum Part { Head, Body, Legs, Jetpack }
+    private Part currentPart = Part.Head;
+
     private float inputCooldown = 0.3f;
     private float lastInputTime = 0f;
-
-
-    private PlayerConfiguration config;
+    private float ignoreInputTime = 0.2f;
+    private bool inputEnabled;
+    private bool freeSkinChange = false; // Nuevo flag
 
     public PlayerInput playerInput;
-
-    [SerializeField]
-    GameObject _keyboardUI;
-    [SerializeField]
-    GameObject _gamepadUI;
 
     public void SetPlayerIndex(int pi)
     {
         PlayerIndex = pi;
-        titleText.SetText("Player " + (pi + 1).ToString());
+        titleText.SetText("Player " + (pi + 1));
         ignoreInputTime = Time.time + ignoreInputTime;
+    }
+
+    void Start()
+    {
+        SetupInputType();
+        readyButton.Select();
+
+        playerInput.actions["Cancel"].performed += OnCancelPressed;
+
+        ApplySkin();
+        UpdatePartSelector();
     }
 
     void Update()
     {
-        if (Time.time > ignoreInputTime)
-        {
-            inputEnabled = true;
-        }
-
+        if (Time.time > ignoreInputTime) inputEnabled = true;
         Vector2 moveInput = GetMoveInput();
 
+        // --- Cambiar parte (siempre con cooldown) ---
         if (Time.time - lastInputTime > inputCooldown)
+        {
+            if (moveInput.y > 0.5f)
+            {
+                PreviousPart();
+                lastInputTime = Time.time;
+            }
+            else if (moveInput.y < -0.5f)
+            {
+                NextPart();
+                lastInputTime = Time.time;
+            }
+        }
+
+        // --- Cambiar skin (con excepción del primer cambio libre) ---
+        bool canUseSkinInput = (Time.time - lastInputTime > inputCooldown) || freeSkinChange;
+
+        if (canUseSkinInput)
         {
             if (moveInput.x > 0.5f)
             {
                 NextSkin();
                 lastInputTime = Time.time;
+                freeSkinChange = false; // gastamos el primer cambio libre
             }
             else if (moveInput.x < -0.5f)
             {
                 PreviousSkin();
                 lastInputTime = Time.time;
+                freeSkinChange = false;
             }
         }
 
         readyButton.Select();
+    }
 
+    void UpdatePartSelector()
+    {
+        if (partSelector != null && partSelectorPositions.Length == Enum.GetNames(typeof(Part)).Length)
+        {
+            partSelector.localPosition = partSelectorPositions[(int)currentPart];
+        }
     }
 
     public void SetupInputType()
     {
-        if (playerInput == null)
-            return;
-
+        if (playerInput == null) return;
         string controlScheme = playerInput.currentControlScheme;
-
-        if (controlScheme == "Keyboard&Mouse" || controlScheme == "Keyboard")
-        {
-            _keyboardUI.SetActive(true);
-            _gamepadUI.SetActive(false);
-        }
-        else if (controlScheme == "Gamepad")
-        {
-            _keyboardUI.SetActive(false);
-            _gamepadUI.SetActive(true);
-        }
+        _keyboardUI.SetActive(controlScheme.Contains("Keyboard"));
+        _gamepadUI.SetActive(controlScheme.Contains("Gamepad"));
     }
 
-    public void SetSkin(AnimatorOverrideController anim)
+    public void SetSkin()
     {
-        if (!inputEnabled) { return; }
-
-        anim = playerAnimatorSkins[currentIndex];
-
-        PlayerConfigurationManager.Instance.SetPlayerAnim(PlayerIndex, playerAnimatorSkins[currentIndex]);
+        if (!inputEnabled) return;
+        ApplySkin();
         readyPanel.SetActive(true);
-        readyButton.Select();
         menuPanel.SetActive(false);
+        readyButton.Select();
     }
 
     public void ReadyPlayer()
     {
-        if (!inputEnabled) { return; }
-
+        if (!inputEnabled) return;
         PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
-        //readyButton.gameObject.SetActive(false);
-        if (readyButton.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Ready_on"))
-        {
-            readyButton.GetComponent<Animator>().SetTrigger("off");
-        }
+
+        Animator rbAnim = readyButton.GetComponent<Animator>();
+        if (rbAnim.GetCurrentAnimatorStateInfo(0).IsName("Ready_on"))
+            rbAnim.SetTrigger("off");
         else
-        {
-            readyButton.GetComponent<Animator>().SetTrigger("on");
-        }
-    }
-
-    void Start()
-    {
-        PlayerConfigurationManager.Instance.SetPlayerAnim(PlayerIndex, playerAnimatorSkins[currentIndex]);
-        SetupInputType();
-        UpdateVisual();
-        readyButton.Select();
-
-        playerInput.actions["Cancel"].performed += OnCancelPressed;
+            rbAnim.SetTrigger("on");
     }
 
     private void OnCancelPressed(InputAction.CallbackContext context)
     {
         var config = PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex];
-
         if (config.IsReady)
         {
             PlayerConfigurationManager.Instance.ReadyPlayer(PlayerIndex);
@@ -145,9 +163,7 @@ public class PlayerSetupMenuController : MonoBehaviour
         }
         else
         {
-            // ✅ DESUSCRIBIR EVENTO ANTES DE DESTRUIR
             playerInput.actions["Cancel"].performed -= OnCancelPressed;
-
             PlayerConfigurationManager.Instance.RemovePlayer(PlayerIndex);
             Destroy(this.gameObject);
         }
@@ -161,49 +177,107 @@ public class PlayerSetupMenuController : MonoBehaviour
 
     Vector2 GetMoveInput()
     {
-        if (playerInput == null)
-            return Vector2.zero;
-
+        if (playerInput == null) return Vector2.zero;
         InputAction navigateAction = playerInput.actions["Navigate"];
-
-            if (navigateAction != null)
-                return navigateAction.ReadValue<Vector2>();
-
-
-        return Vector2.zero;
+        return navigateAction != null ? navigateAction.ReadValue<Vector2>() : Vector2.zero;
     }
 
+    // =============================
+    // Cambiar parte activa
+    void NextPart()
+    {
+        currentPart = (Part)(((int)currentPart + 1) % Enum.GetNames(typeof(Part)).Length);
+        Debug.Log("Parte seleccionada: " + currentPart);
+        UpdatePartSelector();
+        freeSkinChange = true; // habilitamos el primer cambio rápido de skin
+    }
+
+    void PreviousPart()
+    {
+        int max = Enum.GetNames(typeof(Part)).Length;
+        currentPart = (Part)(((int)currentPart - 1 + max) % max);
+        Debug.Log("Parte seleccionada: " + currentPart);
+        UpdatePartSelector();
+        freeSkinChange = true;
+    }
+
+    // =============================
+    // Cambiar skin de la parte activa
     void NextSkin()
     {
-        if (PlayerIndex >= 0 && PlayerIndex < PlayerConfigurationManager.Instance.GetPlayerConfigs().Count &&
-            !PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex].IsReady)
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex].IsReady) return;
+
+        switch (currentPart)
         {
-            currentIndex = (currentIndex + 1) % playerSprites.Length;
-            ApplySkin();
+            case Part.Body:
+                currentBodyIndex = (currentBodyIndex + 1) % bodySkins.Length;
+                break;
+            case Part.Head:
+                currentHeadIndex = (currentHeadIndex + 1) % headSkins.Length;
+                break;
+            case Part.Legs:
+                currentLegsIndex = (currentLegsIndex + 1) % legsSkins.Length;
+                break;
+            case Part.Jetpack:
+                currentJetpackIndex = (currentJetpackIndex + 1) % jetpackSkins.Length;
+                break;
         }
-        readyButton.Select();
+
+        ApplySkin();
     }
 
     void PreviousSkin()
     {
-        if (PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex].IsReady == false)
+        if (PlayerConfigurationManager.Instance.GetPlayerConfigs()[PlayerIndex].IsReady) return;
+
+        switch (currentPart)
         {
-            currentIndex = (currentIndex - 1 + playerSprites.Length) % playerSprites.Length;
-            ApplySkin();
-        } 
-        readyButton.Select();
+            case Part.Body:
+                currentBodyIndex = (currentBodyIndex - 1 + bodySkins.Length) % bodySkins.Length;
+                break;
+            case Part.Head:
+                currentHeadIndex = (currentHeadIndex - 1 + headSkins.Length) % headSkins.Length;
+                break;
+            case Part.Legs:
+                currentLegsIndex = (currentLegsIndex - 1 + legsSkins.Length) % legsSkins.Length;
+                break;
+            case Part.Jetpack:
+                currentJetpackIndex = (currentJetpackIndex - 1 + jetpackSkins.Length) % jetpackSkins.Length;
+                break;
+        }
+
+        ApplySkin();
     }
 
+    // =============================
+    // Aplicar cambios
     void ApplySkin()
     {
         UpdateVisual();
-        PlayerConfigurationManager.Instance.SetPlayerAnim(PlayerIndex, playerAnimatorSkins[currentIndex]);
+
+        PlayerConfigurationManager.Instance.SetPlayerAnim(
+            PlayerIndex,
+            bodySkins[currentBodyIndex],
+            headSkins[currentHeadIndex],
+            legsSkins[currentLegsIndex],
+            jetpackSkins[currentJetpackIndex]
+        );
+
         readyButton.Select();
     }
 
     void UpdateVisual()
     {
-        if (playerDisplay != null && playerSprites.Length > 0)
-            playerDisplay.sprite = playerSprites[currentIndex];
+        if (bodyDisplay != null && bodySprites.Length > 0)
+            bodyDisplay.sprite = bodySprites[currentBodyIndex];
+
+        if (headDisplay != null && headSprites.Length > 0)
+            headDisplay.sprite = headSprites[currentHeadIndex];
+
+        if (legsDisplay != null && legsSprites.Length > 0)
+            legsDisplay.sprite = legsSprites[currentLegsIndex];
+
+        if (jetpackDisplay != null && jetpackSprites.Length > 0)
+            jetpackDisplay.sprite = jetpackSprites[currentJetpackIndex];
     }
 }

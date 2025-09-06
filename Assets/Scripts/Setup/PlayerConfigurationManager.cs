@@ -38,9 +38,19 @@ public class PlayerConfigurationManager : MonoBehaviour
         return playerConfigs;
     }
 
-    public void SetPlayerAnim(int index, AnimatorOverrideController anim)
+    public void SetPlayerAnim(int index, 
+        AnimatorOverrideController body, 
+        AnimatorOverrideController head, 
+        AnimatorOverrideController legs, 
+        AnimatorOverrideController jetpack)
     {
-        playerConfigs[index].PlayerSkin = anim;
+        if (index < 0 || index >= playerConfigs.Count) return;
+
+        var config = playerConfigs[index];
+        config.BodySkin = body;
+        config.HeadSkin = head;
+        config.LegsSkin = legs;
+        config.JetpackSkin = jetpack;
     }
 
     public void ReadyPlayer(int index)
@@ -155,5 +165,9 @@ public class PlayerConfiguration
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
-    public AnimatorOverrideController PlayerSkin { get; set; }
+
+    public AnimatorOverrideController BodySkin { get; set; }
+    public AnimatorOverrideController HeadSkin { get; set; }
+    public AnimatorOverrideController LegsSkin { get; set; }
+    public AnimatorOverrideController JetpackSkin { get; set; }
 }
