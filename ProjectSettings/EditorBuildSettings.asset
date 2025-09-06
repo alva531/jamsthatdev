@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Coop Levels/CoopInput2.unity
     guid: 20c4e404f21ad614c976b7be6f00068c
   - enabled: 1
+    path: Assets/Scenes/Coop Levels/CoopInput2 Backup.unity
+    guid: 1f852afcc50f3a042a68087d7e7255d4
+  - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: 0e9afdac9a93d4444bdc7db865af84fc
   m_configObjects:

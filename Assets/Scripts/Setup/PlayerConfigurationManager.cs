@@ -97,7 +97,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
 
-            string sceneToLoad = playerConfigs.Count == 1 ? "Valve" : "CoopInput2";
+            string sceneToLoad = playerConfigs.Count == 1 ? "Valve" : "CoopInput2 Backup";
             SceneManager.LoadScene(sceneToLoad);
         }
 
