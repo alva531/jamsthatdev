@@ -1181,6 +1181,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1427318672141824210, guid: b23f0109847ab384291450277030485d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4030260083036017825, guid: b23f0109847ab384291450277030485d, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 3.8044388
@@ -4631,7 +4635,7 @@ Transform:
   m_GameObject: {fileID: 558339118}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4399999, y: -2.732, z: -0.608}
+  m_LocalPosition: {x: 2.24, y: -1.1285, z: -0.608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5867,7 +5871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &791434745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6941,7 +6945,7 @@ Transform:
   m_GameObject: {fileID: 931123635}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.3199997, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8140,7 +8144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1149882783
 Transform:
   m_ObjectHideFlags: 0
@@ -9422,7 +9426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1341738891
 Transform:
   m_ObjectHideFlags: 0
@@ -9584,8 +9588,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: splitMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: EnableFXAA
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: zoomSmooth
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: LineColor.b
@@ -9604,12 +9616,32 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: maxOrthoSize
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: EnableMerging
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: baseOrthoSize
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: worldSmoothing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: screenSmoothing
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: Players.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
+      propertyPath: worldSplitDistance
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7868160904874821159, guid: 5a2fd26dcb6f9264f90a7117a1aa47a5, type: 3}
       propertyPath: Players.Array.data[0]
@@ -11330,7 +11362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1564261951
 Transform:
   m_ObjectHideFlags: 0
@@ -12281,7 +12313,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1690508488
 Transform:
   m_ObjectHideFlags: 0
@@ -12852,6 +12884,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lever
       objectReference: {fileID: 0}
+    - target: {fileID: 1427318672141824210, guid: b23f0109847ab384291450277030485d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4030260083036017825, guid: b23f0109847ab384291450277030485d, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: 0.63528156
@@ -13320,7 +13356,7 @@ Transform:
   m_GameObject: {fileID: 1782888132}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4399999, y: -2.075, z: -0.608}
+  m_LocalPosition: {x: 2.24, y: -0.47149992, z: -0.608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

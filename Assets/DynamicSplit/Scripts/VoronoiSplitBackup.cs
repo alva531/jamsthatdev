@@ -1,8 +1,8 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.Rendering;
 
-public class VoronoiSplit : MonoBehaviour
+public class VoronoiSplitBackup : MonoBehaviour
 {
     private struct RenderProperties
     {
@@ -41,12 +41,30 @@ public class VoronoiSplit : MonoBehaviour
 
     #endregion
 
+    private float modeBlend = 0f; // 0 = WorldDistance, 1 = ScreenRelative
+    public float modeSmooth = 2f; // Velocidad de transición
+
     #region Public Variables
 
     [Header("Camera Zoom")]
-    public float MinOrthoSize = 1.25f;   // Tamaño mínimo de la cámara
-    public float MaxOrthoSize = 1.5f;  // Tamaño máximo de la cámara
-    public float SplitThreshold = 4f; // Distancia a la que empieza a splittear
+    public float baseOrthoSize = 1.25f;
+    public float maxOrthoSize = 3f;
+    public float zoomSmooth = 5f;
+
+    public enum SplitMode { ScreenRelative, WorldDistance }
+    public SplitMode splitMode = SplitMode.ScreenRelative;
+
+    // Screen-relative
+    [Tooltip("Factor >1 retrasa el split (permite más separación antes de dividir).")]
+    public float splitDistanceMultiplier = 1.5f;
+    [Tooltip("Ancho de transición en 'ratio' (1 = igual que el original).")]
+    public float screenSmoothing = 1f;
+
+    // World-space
+    [Tooltip("Distancia en unidades del mundo para empezar a dividir pantallas.")]
+    public float worldSplitDistance = 20f;
+    [Tooltip("Ancho de transición adicional en unidades del mundo.")]
+    public float worldSmoothing = 5f;
 
     [Header("References")]
     public Camera MainCamera;
@@ -96,7 +114,6 @@ public class VoronoiSplit : MonoBehaviour
         MaskRenderer.sharedMaterial = VoronoiCellsMaterial;
 
         InitializeCameras();
-
         SetLineColor(LineColor);
     }
 
@@ -115,20 +132,15 @@ public class VoronoiSplit : MonoBehaviour
     private void OnResolutionChanged(int width, int height)
     {
         if (screen.Width == width && screen.Height == height)
-        {
             return;
-        }
 
         playerTex?.Release();
         cellsTexture?.Release();
 
-        playerTex = new RenderTexture(width, height, 32);
-        playerTex.name = "Player Render";
-
+        playerTex = new RenderTexture(width, height, 32) { name = "Player Render" };
         PlayerCamera.targetTexture = playerTex;
 
-        cellsTexture = new RenderTexture(width, height, 0, GraphicsFormat.R8_UNorm);
-        cellsTexture.name = "Cells Visualization Texture";
+        cellsTexture = new RenderTexture(width, height, 0, GraphicsFormat.R8_UNorm) { name = "Cells Visualization Texture" };
 
         SplitLineMaterial.SetTexture(SHADER_CELLS_STENCIL_TEX, cellsTexture);
         SplitLineMaterial.SetFloat(SHADER_LINE_THICKNESS, (float)height / 200);
@@ -139,13 +151,10 @@ public class VoronoiSplit : MonoBehaviour
     private void OnOrthoSizeChanged(float orthoSize)
     {
         if (Mathf.Abs(screen.OrthoSize - orthoSize) < Mathf.Epsilon)
-        {
             return;
-        }
 
         PlayerCamera.orthographicSize = orthoSize;
         MaskTransform.localScale = new Vector3(orthoSize * screen.AspectRatio * 2, orthoSize * 2);
-
         screen.OrthoSize = orthoSize;
     }
 
@@ -157,53 +166,25 @@ public class VoronoiSplit : MonoBehaviour
 
     private void Update()
     {
-
-
-        // handle edge cases
+        if (Players.Length < PlayerCount)
         {
-            // if (Players.Length < PlayerCount)
-            // {
-            //     PlayerCount = Players.Length;
-            //     Debug.LogWarningFormat(
-            //         "PlayerCount ({0}) is higher than number of players in Players ({1}) array. Setting PlayerCount to {1}.",
-            //         PlayerCount, Players.Length);
-            // }
-            if (Players.Length < PlayerCount)
-            {
-                GameObject[] foundPlayers = GameObject.FindGameObjectsWithTag("Player");
-
-                Players = new Transform[foundPlayers.Length];
-
-                for (int i = 0; i < foundPlayers.Length; i++)
-                {
-                    Players[i] = foundPlayers[i].transform;
-                }
-            }
-            
-
-            if (PlayerCount > MAX_PLAYERS)
-            {
-                PlayerCount = MAX_PLAYERS;
-                Debug.LogWarningFormat(
-                    "Voronoi split screen doesn't support more than {0} players right now. Setting PlayerCount to {0}",
-                    MAX_PLAYERS);
-            }
+            GameObject[] foundPlayers = GameObject.FindGameObjectsWithTag("Player");
+            Players = new Transform[foundPlayers.Length];
+            for (int i = 0; i < foundPlayers.Length; i++)
+                Players[i] = foundPlayers[i].transform;
         }
 
-        // set player world positions
+        if (PlayerCount > MAX_PLAYERS)
         {
-            if (Players.Length == 0)
-            {
-                worldPositions[0] = transform.position;
-            }
-
-            for (int i = 0; i < Players.Length && i < MAX_PLAYERS; i++)
-            {
-                worldPositions[i] = Players[i].position;
-            }
+            PlayerCount = MAX_PLAYERS;
+            Debug.LogWarning($"Voronoi split screen soporta como máximo {MAX_PLAYERS} players.");
         }
-        
-        // handle single player
+
+        // posiciones
+        for (int i = 0; i < Players.Length && i < MAX_PLAYERS; i++)
+            worldPositions[i] = Players[i].position;
+
+        // single player
         if (PlayerCount <= 1)
         {
             normalizedPositions[0] = Vector3.one / 2;
@@ -213,105 +194,78 @@ public class VoronoiSplit : MonoBehaviour
             return;
         }
 
-        // update screen properties
+        // zoom dinámico
+        if (Players.Length >= 2)
         {
-            UpdateRenderProperties();
+            float distance = Vector2.Distance(worldPositions[0], worldPositions[1]);
+            float t = Mathf.InverseLerp(0f, 20f, distance);
+            float targetSize = Mathf.Lerp(baseOrthoSize, maxOrthoSize, t);
+            float newSize = Mathf.Lerp(MainCamera.orthographicSize, targetSize, Time.deltaTime * zoomSmooth);
 
-            if (lastLineColor != LineColor)
-            {
-                SetLineColor(LineColor);
-            }
+            MainCamera.orthographicSize = newSize;
+            OnOrthoSizeChanged(newSize);
         }
 
-        // calculate normalized positions
+        UpdateRenderProperties();
+        if (lastLineColor != LineColor) SetLineColor(LineColor);
+
+        // normalización
+        Vector2 min = normalizedPositions[0] = worldPositions[0];
+        Vector2 max = normalizedPositions[0];
+        for (int i = 1; i < MAX_PLAYERS; i++)
         {
-            Vector2 min, max;
-
-            // calculate positions in <0, infinity> range
-            for (int i = 0; i < MAX_PLAYERS; i++)
-            {
-                normalizedPositions[i] = worldPositions[i];
-            }
-
-            min = normalizedPositions[0];
-            max = normalizedPositions[0];
-
-            for (int i = 1; i < MAX_PLAYERS; i++)
-            {
-                if (normalizedPositions[i].x < min.x) min.x = normalizedPositions[i].x;
-                if (normalizedPositions[i].x > max.x) max.x = normalizedPositions[i].x;
-                if (normalizedPositions[i].y < min.y) min.y = normalizedPositions[i].y;
-                if (normalizedPositions[i].y > max.y) max.y = normalizedPositions[i].y;
-            }
-
-            max -= min;
-            for (int i = 0; i < MAX_PLAYERS; i++)
-            {
-                normalizedPositions[i] -= min;
-            }
-
-            // correct positions for screen aspect ratio
-            var diff = Vector2.zero;
-            if (max.x > max.y * screen.AspectRatio)
-            {
-                diff.y = ((max.x / screen.AspectRatio) - max.y) / 2;
-            }
-            else if (max.y > max.x * 1 / screen.AspectRatio)
-            {
-                diff.x = ((max.y * screen.AspectRatio) - max.x) / 2;
-            }
-
-            for (int i = 0; i < MAX_PLAYERS; i++)
-            {
-                normalizedPositions[i] += diff;
-            }
-            max += diff * 2;
-
-            // convert to <0, 1> range
-            for (int i = 0; i < MAX_PLAYERS; i++)
-            {
-                normalizedPositions[i] /= max;
-            }
+            normalizedPositions[i] = worldPositions[i];
+            min = Vector2.Min(min, normalizedPositions[i]);
+            max = Vector2.Max(max, normalizedPositions[i]);
         }
 
-        // handle merging
+        max -= min;
+        for (int i = 0; i < MAX_PLAYERS; i++) normalizedPositions[i] -= min;
+
+        Vector2 diff = Vector2.zero;
+        if (max.x > max.y * screen.AspectRatio)
+            diff.y = ((max.x / screen.AspectRatio) - max.y) / 2;
+        else if (max.y > max.x * 1 / screen.AspectRatio)
+            diff.x = ((max.y * screen.AspectRatio) - max.x) / 2;
+
+        for (int i = 0; i < MAX_PLAYERS; i++) normalizedPositions[i] += diff;
+        max += diff * 2;
+
+        for (int i = 0; i < MAX_PLAYERS; i++) normalizedPositions[i] /= max;
+
+        // merging
+        activePlayers = 2;
+        mergeRatio = 0f;
+        if (EnableMerging)
         {
-            activePlayers = 2;
-            mergeRatio = 0;
+            var diffNorm = normalizedPositions[1] - normalizedPositions[0];
+            var realDiff = worldPositions[1] - worldPositions[0];
+            mergedPosition = Vector2.Lerp(worldPositions[0], worldPositions[1], 0.5f);
 
-            if (EnableMerging)
+            float realDist = realDiff.magnitude;
+
+            // ----- Blend de modos -----
+            float targetMode = (realDist > worldSplitDistance + worldSmoothing) ? 1f : 0f;
+            modeBlend = Mathf.Lerp(modeBlend, targetMode, Time.deltaTime * modeSmooth);
+
+            // mergeRatio se calcula como siempre (WorldDistance style)
+            float threshold = Mathf.Max(0f, worldSplitDistance);
+            float smooth = Mathf.Max(0f, worldSmoothing);
+
+            if (realDist <= threshold + smooth)
             {
-                var realDiff = worldPositions[1] - worldPositions[0];
-                var realDistance = realDiff.magnitude;
-
-                // Ajustar ortho size en función de la distancia
-                float targetOrtho = Mathf.Lerp(MinOrthoSize, MaxOrthoSize, realDistance / SplitThreshold);
-                targetOrtho = Mathf.Clamp(targetOrtho, MinOrthoSize, MaxOrthoSize);
-                OnOrthoSizeChanged(targetOrtho);
-
-                // Decidir si mergear o splitear
-                if (realDistance <= SplitThreshold)
+                if (realDist <= threshold)
                 {
-                    mergedPosition = Vector2.Lerp(worldPositions[0], worldPositions[1], 0.5f);
-                    float mergeStart = SplitThreshold * 0.8f; // rango de suavizado (ej: empieza a splitear al 80%)
-                    
-                    if (realDistance <= mergeStart)
-                    {
-                        // completamente mergeados
-                        mergeRatio = 1;
-                        activePlayers = 1;
-                    }
-                    else
-                    {
-                        // transición merge <-> split
-                        float t = (realDistance - mergeStart) / (SplitThreshold - mergeStart);
-                        mergeRatio = 1 - Mathf.Clamp01(t);
-                    }
+                    mergeRatio = 1f;
+                    activePlayers = 1;
+                }
+                else
+                {
+                    mergeRatio = Mathf.InverseLerp(threshold + smooth, threshold, realDist);
                 }
             }
         }
 
-        // render multiplayer
         RenderPlayers(activePlayers);
     }
 
@@ -324,9 +278,7 @@ public class VoronoiSplit : MonoBehaviour
         }
 
         for (int i = playerCount; i < MAX_PLAYERS; i++)
-        {
             VoronoiCellsMaterial.SetVector(SHADER_PLAYER_POSITION[i], Vector4.zero);
-        }
 
         VoronoiCellsMaterial.SetInt(SHADER_CELLS_STENCIL_OP, (int)CompareFunction.Always);
         Shader.SetGlobalInt(SHADER_MASKED_STENCIL_OP, (int)CompareFunction.Equal);
@@ -340,13 +292,23 @@ public class VoronoiSplit : MonoBehaviour
         {
             Shader.SetGlobalInt(SHADER_CELLS_STENCIL_PLAYER, i + 1);
 
+            // --- WorldDistance target ---
+            Vector3 targetWorld = Vector3.Lerp(worldPositions[i], mergedPosition, mergeRatio);
+
+            // --- ScreenRelative target ---
             Vector2 center = Vector2.one / 2;
             Vector2 offset = (center - normalizedPositions[i]) * screen.OrthoSize * new Vector2(screen.AspectRatio, 1);
-            transform.localPosition = Vector2.Lerp(worldPositions[i] + offset, mergedPosition, mergeRatio);
+            Vector3 targetScreen = Vector2.Lerp(worldPositions[i] + offset, mergedPosition, mergeRatio);
+
+            // --- Blend entre ambos ---
+            Vector3 blendedTarget = Vector3.Lerp(targetWorld, targetScreen, modeBlend);
+
+            transform.localPosition = blendedTarget;
 
             VoronoiCellsMaterial.SetInt(SHADER_PLAYER, i + 1);
             PlayerCamera.Render();
         }
+
 
         MaskRenderer.enabled = false;
         Shader.SetGlobalInt(SHADER_MASKED_STENCIL_OP, (int)CompareFunction.Disabled);
@@ -358,11 +320,11 @@ public class VoronoiSplit : MonoBehaviour
         var screenTex = RenderTexture.GetTemporary(screen.Width, screen.Height);
         var fxaaTex = EnableFXAA ? RenderTexture.GetTemporary(screen.Width, screen.Height) : null;
 
-        Graphics.Blit(null, cellsTexture, VoronoiCellsMaterial);                          // cells visalization
-        Graphics.Blit(playerTex, screenTex, SplitLineMaterial);                                // merge screens and split line texture
-        if (EnableFXAA) Graphics.Blit(screenTex, fxaaTex, FxaaMaterial);                       // FXAA pass
-        AlphaBlendMaterial.SetTexture(SHADER_BLEND_TEXTURE, EnableFXAA ? fxaaTex : screenTex); // set screen texture
-        Graphics.Blit(src, dst, AlphaBlendMaterial);                                           // blend rendered UI on top of screen texture
+        Graphics.Blit(null, cellsTexture, VoronoiCellsMaterial);
+        Graphics.Blit(playerTex, screenTex, SplitLineMaterial);
+        if (EnableFXAA) Graphics.Blit(screenTex, fxaaTex, FxaaMaterial);
+        AlphaBlendMaterial.SetTexture(SHADER_BLEND_TEXTURE, EnableFXAA ? fxaaTex : screenTex);
+        Graphics.Blit(src, dst, AlphaBlendMaterial);
 
         if (EnableFXAA) RenderTexture.ReleaseTemporary(fxaaTex);
         RenderTexture.ReleaseTemporary(screenTex);
