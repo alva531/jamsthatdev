@@ -11,9 +11,13 @@ public class AudioMixerController : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider sfxSlider;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Si no existen los PlayerPrefs, los inicializa a 0.5
+        if (!PlayerPrefs.HasKey("masterVolume")) PlayerPrefs.SetFloat("masterVolume", 0.5f);
+        if (!PlayerPrefs.HasKey("musicVolume")) PlayerPrefs.SetFloat("musicVolume", 0.5f);
+        if (!PlayerPrefs.HasKey("sfxVolume")) PlayerPrefs.SetFloat("sfxVolume", 0.5f);
+
         LoadVolume();
     }
 

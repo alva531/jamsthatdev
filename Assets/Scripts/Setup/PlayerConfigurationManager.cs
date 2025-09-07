@@ -33,6 +33,19 @@ public class PlayerConfigurationManager : MonoBehaviour
         }
     }
 
+    void Start() //HARDCODE OH YEAH
+    {
+        if(countdownText == null)
+        {
+            countdownText = GameObject.Find("Canvas/ReadyCount").GetComponent<TextMeshProUGUI>();
+        }
+
+        if (_fade == null)
+        {
+            _fade = GameObject.FindWithTag("Fade");
+        }
+    }
+
     public List<PlayerConfiguration> GetPlayerConfigs()
     {
         return playerConfigs;

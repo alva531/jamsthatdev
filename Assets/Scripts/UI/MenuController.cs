@@ -5,17 +5,6 @@ using UnityEngine.UI;
 
 public class MenuController : MonoBehaviour
 {
-    [SerializeField] private GameObject gameplayUI;
-    [SerializeField] private GameObject pauseUI;
-    [SerializeField] private GameObject tutorialUI;
-
-
-
-    [SerializeField] private bool isPaused;
-    [SerializeField] private bool showTutorial = true;
-
-
-
     [SerializeField] private Button _playButton;
     [SerializeField] private Animator _playButtonChild;
     [SerializeField] private Button _settingsButton;
@@ -27,11 +16,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] private Animator _backButtonChild;
 
     [SerializeField] private Button _creditsButton;
-
-
-    private float duration = 1f;
-    private float startScale = 1f;
-    private Coroutine currentCoroutine;
 
     GameObject playerConfig;
 
@@ -48,76 +32,17 @@ public class MenuController : MonoBehaviour
         {
             return;
         }
-
-        if (isPaused = true)
-        {
-            isPaused = false;
-        }
     }
 
     void FixedUpdate()
     {
-        TutorialUI();
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            if (currentCoroutine != null)
-                StopCoroutine(currentCoroutine);
-
-            if (!isPaused)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
-            }
-        }
-
         if (_fade == null)
         {
             _fade = GameObject.FindWithTag("Fade");
         }
     }
 
-    public void PauseGame()
-    {
-        isPaused = true;
-        gameplayUI.SetActive(false);
-        pauseUI.SetActive(true);
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        currentCoroutine = StartCoroutine(SlowDownTime());
-    }
-
-    public void ResumeGame()
-    {
-        isPaused = false;
-        gameplayUI.SetActive(true);
-        pauseUI.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        currentCoroutine = StartCoroutine(SpeedUpTime());
-    }
-
-    public void TutorialUI()
-    {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            showTutorial = !showTutorial;
-
-            if (showTutorial == true)
-            {
-                tutorialUI.gameObject.SetActive(true);
-            }
-            if (showTutorial == false)
-            {
-                tutorialUI.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    public void LoadGame()
+    public void LoadTransition()
     {
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
@@ -131,7 +56,7 @@ public class MenuController : MonoBehaviour
     {
         _fade.GetComponent<Animator>().SetTrigger("Out");
         yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("CharacterSelection");
+        SceneManager.LoadScene("Transition_MM2CS");
     }
 
     public void ExitGame()
@@ -159,12 +84,6 @@ public class MenuController : MonoBehaviour
         _backButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
         StartCoroutine(MenuFade());
     }
-    private IEnumerator MenuFade()
-    {
-        _fade.GetComponent<Animator>().SetTrigger("Out");
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene("MainMenu");
-    }
 
     public void OpenSettings()
     {
@@ -173,7 +92,6 @@ public class MenuController : MonoBehaviour
         _creditsButton.Select();
     }
     
-
     public void LoadCredits()
     {
         Time.timeScale = 1f;
@@ -181,41 +99,16 @@ public class MenuController : MonoBehaviour
         Cursor.visible = true;
         StartCoroutine(CreditsFade());
     }
-
+    private IEnumerator MenuFade()
+    {
+        _fade.GetComponent<Animator>().SetTrigger("Out");
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("MainMenu");
+    }
     private IEnumerator CreditsFade()
     {
         _fade.GetComponent<Animator>().SetTrigger("Out");
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("Credits");
-    }
-
-    private IEnumerator SlowDownTime()
-    {
-        float elapsed = 0f;
-
-        while (Time.timeScale > 0.01f)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Lerp(startScale, 0f, elapsed / duration);
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            yield return null;
-        }
-
-        Time.timeScale = 0f;
-    }
-
-    private IEnumerator SpeedUpTime()
-    {
-        float elapsed = 0f;
-
-        while (Time.timeScale < 0.99f)
-        {
-            elapsed += Time.unscaledDeltaTime;
-            Time.timeScale = Mathf.Lerp(0f, startScale, elapsed / duration);
-            Time.fixedDeltaTime = 0.02f * Time.timeScale;
-            yield return null;
-        }
-
-        Time.timeScale = 1f;
     }
 }
