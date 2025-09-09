@@ -25228,11 +25228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7143906632848483632, guid: b23f0109847ab384291450277030485d, type: 3}
       propertyPath: OnMaxReached.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7143906632848483632, guid: b23f0109847ab384291450277030485d, type: 3}
       propertyPath: OnMinReached.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7143906632848483632, guid: b23f0109847ab384291450277030485d, type: 3}
       propertyPath: OnMaxReached.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName

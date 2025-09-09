@@ -44,8 +44,8 @@ public class PlayerSetupMenuController : MonoBehaviour
     private int currentLegsIndex = 0;
     private int currentJetpackIndex = 0;
 
-    private enum Part { Head, Body, Legs, Jetpack }
-    private Part currentPart = Part.Head;
+    private enum Part { Body, Jetpack, Head }
+    private Part currentPart = Part.Body;
 
     private float inputCooldown = 0.3f;
     private float lastInputTime = 0f;
@@ -215,9 +215,9 @@ public class PlayerSetupMenuController : MonoBehaviour
             case Part.Head:
                 currentHeadIndex = (currentHeadIndex + 1) % headSkins.Length;
                 break;
-            case Part.Legs:
-                currentLegsIndex = (currentLegsIndex + 1) % legsSkins.Length;
-                break;
+            //case Part.Legs:
+                //currentLegsIndex = (currentLegsIndex + 1) % legsSkins.Length;
+                //break;
             case Part.Jetpack:
                 currentJetpackIndex = (currentJetpackIndex + 1) % jetpackSkins.Length;
                 break;
@@ -238,9 +238,9 @@ public class PlayerSetupMenuController : MonoBehaviour
             case Part.Head:
                 currentHeadIndex = (currentHeadIndex - 1 + headSkins.Length) % headSkins.Length;
                 break;
-            case Part.Legs:
-                currentLegsIndex = (currentLegsIndex - 1 + legsSkins.Length) % legsSkins.Length;
-                break;
+            //case Part.Legs:
+                //currentLegsIndex = (currentLegsIndex - 1 + legsSkins.Length) % legsSkins.Length;
+                //break;
             case Part.Jetpack:
                 currentJetpackIndex = (currentJetpackIndex - 1 + jetpackSkins.Length) % jetpackSkins.Length;
                 break;
