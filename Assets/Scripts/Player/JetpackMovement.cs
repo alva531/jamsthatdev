@@ -24,6 +24,8 @@ public class JetpackMovement : MonoBehaviour
         //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _animator = GetComponentInChildren<Animator>();
         soundController = GameObject.FindWithTag("SoundController").GetComponent<SoundController>();
+
+        jetpackParticle = GetComponentInChildren<JetpackParticle>();
     }
 
     public void SetInputVector(Vector2 input)

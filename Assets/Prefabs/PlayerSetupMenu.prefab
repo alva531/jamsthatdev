@@ -92,7 +92,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &256899464272310569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -259,7 +259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -569.33344, y: -8.960182}
+  m_AnchoredPosition: {x: -570, y: -8.960182}
   m_SizeDelta: {x: 165.707, y: 161.013}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7712743381732211294
@@ -1278,6 +1278,10 @@ MonoBehaviour:
   - {fileID: 22100000, guid: 529d687d66ea2b94bb73440745ada322, type: 2}
   - {fileID: 22100000, guid: 6bdf70745d8160449b8b9ca97b4c3a62, type: 2}
   - {fileID: 22100000, guid: 358ddb8004f436e45acb767277dfe600, type: 2}
+  particlePrefabs:
+  - {fileID: 2855972356787466265, guid: 458a9de55b3a7b241aef366c90cc5816, type: 3}
+  - {fileID: 7421575622322378997, guid: 9a872d428d13c274391f52c42430dd21, type: 3}
+  - {fileID: 7421575622322378997, guid: 9a872d428d13c274391f52c42430dd21, type: 3}
   playerInput: {fileID: 0}
 --- !u!1 &5571360479334798419
 GameObject:
@@ -2172,7 +2176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 566.45306, y: -8.960182}
+  m_AnchoredPosition: {x: 570, y: -8.960182}
   m_SizeDelta: {x: 165.707, y: 161.013}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3155561191978602194
