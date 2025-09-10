@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Porton
+  m_Name: BotonIdle
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -20,18 +20,14 @@ AnimationClip:
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
-    - time: 1
-      value: {fileID: -2059249049, guid: ee77b36603c02c844a0905382c96b424, type: 3}
-    - time: 1.0666667
-      value: {fileID: -973832573, guid: ee77b36603c02c844a0905382c96b424, type: 3}
-    - time: 1.1333333
-      value: {fileID: -562756943, guid: ee77b36603c02c844a0905382c96b424, type: 3}
+    - time: 0
+      value: {fileID: -1270931277, guid: 02dd400933fd50245aa969e1d99494a4, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 15
+  m_SampleRate: 1
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -48,15 +44,13 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -2059249049, guid: ee77b36603c02c844a0905382c96b424, type: 3}
-    - {fileID: -973832573, guid: ee77b36603c02c844a0905382c96b424, type: 3}
-    - {fileID: -562756943, guid: ee77b36603c02c844a0905382c96b424, type: 3}
+    - {fileID: -1270931277, guid: 02dd400933fd50245aa969e1d99494a4, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 1.2
+    m_StopTime: 1
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

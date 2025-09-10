@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: vaporlocoMat
+  m_Name: vaporlocoMat 1
   m_Shader: {fileID: 4800000, guid: 59a1d094948784346ad85d41b220895f, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 920bd4bb9af9e1d4bbb352f0d3c423e0, type: 3}
+        m_Texture: {fileID: 2800000, guid: c306cb6f77588af4492f7ac5e8522ca7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
