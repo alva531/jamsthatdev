@@ -4,89 +4,90 @@ using UnityEngine.Events;
 
 public class ButtonController : MonoBehaviour
 {
-    [Header("Eventos del botón")]
+    [Header("Eventos básicos")]
     public UnityEvent OnPressed;
     public UnityEvent OnReleased;
 
-    [Header("Opciones especiales")]
-    public bool singleUse = false;      // Se activa solo una vez
-    public bool cooperative = false;    // Si es true, funciona en grupo cooperativo
+    [Header("Evento cooperativo (cuando todos se presionan a la vez)")]
+    public UnityEvent OnAllPressed;
+
+    [Header("Opciones")]
+    public bool singleUse = false;
+    public bool cooperative = false;
+
+    [Header("Restricciones de activación")]
+    public bool boxOnly = false;    // Solo se activa con objetos con tag "Grabbable"
+    public bool playerOnly = false; // Solo se activa con objetos con tag "Player"
 
     [Tooltip("Solo se usa si cooperative = true. Lista de botones relacionados.")]
     public List<ButtonController> relatedButtons;
 
-    int objectsOnButton = 0;
-    bool used = false;
-    bool coopLocked = false; // Queda activado de forma permanente
+    private int objectsOnButton = 0;
+    private bool used = false;
+    private bool coopLocked = false;
+    private bool isPressed = false;
+
+    private bool allPressedInvoked = false;
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (used && singleUse) return;
-        if (coopLocked && cooperative) return;
+        if (coopLocked) return;
 
-        if (other.CompareTag("Grabbable") || other.CompareTag("Player"))
+        if (!IsValidActivator(other)) return; // 🔹 filtro por boxOnly / playerOnly
+
+        objectsOnButton++;
+
+        if (objectsOnButton == 1 && !isPressed)
         {
-            objectsOnButton++;
+            OnPressed.Invoke();
+            isPressed = true;
 
-            if (objectsOnButton == 1)
-            {
-                OnPressed.Invoke();
-
-                if (singleUse)
-                {
-                    used = true;
-                    //Destroy(gameObject); // opcional
-                }
-            }
-
-            if (other.CompareTag("Grabbable"))
-            {
-                Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
-                if (rb != null)
-                {
-                    rb.velocity = Vector2.zero;
-                    rb.angularVelocity = 0f;
-                }
-            }
-
-            if (cooperative)
-                CheckCooperativeGroup();
+            if (singleUse)
+                used = true;
         }
+
+        if (other.CompareTag("Grabbable"))
+        {
+            Rigidbody2D rb = other.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.velocity = Vector2.zero;
+                rb.angularVelocity = 0f;
+            }
+        }
+
+        if (cooperative)
+            CheckCooperativeGroup();
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (used && singleUse) return;
-        if (coopLocked && cooperative) return;
+        if (coopLocked) return;
 
-        if (other.CompareTag("Grabbable") || other.CompareTag("Player"))
+        if (!IsValidActivator(other)) return; // 🔹 filtro por boxOnly / playerOnly
+
+        objectsOnButton = Mathf.Max(0, objectsOnButton - 1);
+
+        if (objectsOnButton == 0 && isPressed)
         {
-            objectsOnButton = Mathf.Max(0, objectsOnButton - 1);
-
-            if (!cooperative)
-            {
-                if (objectsOnButton == 0)
-                {
-                    OnReleased.Invoke();
-                }
-            }
-            else
-            {
-                CheckCooperativeGroup();
-            }
+            OnReleased.Invoke();
+            isPressed = false;
         }
+
+        if (cooperative)
+            CheckCooperativeGroup();
     }
 
     void CheckCooperativeGroup()
     {
         if (coopLocked) return;
 
-        // Construimos el grupo: este botón + los relacionados
         List<ButtonController> group = new List<ButtonController>(relatedButtons);
         if (!group.Contains(this))
             group.Add(this);
 
-        // Contamos cuántos botones del grupo están presionados
         int pressedCount = 0;
         foreach (var button in group)
         {
@@ -94,28 +95,35 @@ public class ButtonController : MonoBehaviour
                 pressedCount++;
         }
 
-        // Si hay al menos 2 presionados → se bloquea el grupo completo
-        if (pressedCount >= 2)
+        bool allPressed = pressedCount == group.Count;
+
+        if (allPressed)
         {
             foreach (var button in group)
             {
-                if (button != null)
+                button.coopLocked = true;
+
+                if (!button.allPressedInvoked)
                 {
-                    button.OnPressed.Invoke();
-                    button.coopLocked = true;
+                    button.OnAllPressed.Invoke();
+                    button.allPressedInvoked = true;
                 }
             }
         }
         else
         {
-            // Si no hay 2, los que no están presionados se liberan
             foreach (var button in group)
-            {
-                if (button != null && button.objectsOnButton == 0)
-                {
-                    button.OnReleased.Invoke();
-                }
-            }
+                button.allPressedInvoked = false;
         }
+    }
+
+    private bool IsValidActivator(Collider2D other)
+    {
+        if (boxOnly && !other.CompareTag("Grabbable")) return false;
+        if (playerOnly && !other.CompareTag("Player")) return false;
+
+        if (!other.CompareTag("Grabbable") && !other.CompareTag("Player")) return false;
+
+        return true;
     }
 }

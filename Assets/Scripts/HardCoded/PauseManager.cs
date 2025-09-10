@@ -81,6 +81,11 @@ public class PauseManager : MonoBehaviour
         currentCoroutine = StartCoroutine(LoadMenuRoutine());
     }
 
+    public void LoadCredits()
+    {
+        currentCoroutine = StartCoroutine(LoadCreditsRoutine());
+    }
+
     private IEnumerator LoadMenuRoutine()
     {
         Animator fade = GameObject.FindWithTag("Fade").GetComponent<Animator>();
@@ -91,6 +96,15 @@ public class PauseManager : MonoBehaviour
         fade.SetTrigger("Out");
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("MainMenu");
+    }
+
+    private IEnumerator LoadCreditsRoutine()
+    {
+        Animator fade = GameObject.FindWithTag("Fade").GetComponent<Animator>();
+
+        fade.SetTrigger("Out");
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("Credits");
     }
 
     private IEnumerator SlowDownTime()

@@ -27,15 +27,13 @@ public class LeverController : MonoBehaviour
     [SerializeField] private bool invertRotation = false;
 
     [SerializeField] float angleOffset;
-
-    Transform leverAng;
+    private Transform leverAng;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         hinge = GetComponent<HingeJoint2D>();
-
-        leverAng = transform.GetChild(0);;
+        leverAng = transform.GetChild(0);
     }
 
     void Start()
@@ -82,50 +80,38 @@ public class LeverController : MonoBehaviour
         {
             Vector2 dir = (player.position - transform.position).normalized;
 
-            float targetAngle;
-            if (invertRotation)
-            {
-                targetAngle = Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg;
-            }
-            else
-            {
-                targetAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-            }
+            float targetAngle = invertRotation
+                ? Mathf.Atan2(-dir.y, -dir.x) * Mathf.Rad2Deg
+                : Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
             targetAngle -= angleOffset;
-
             targetAngle = Mathf.Clamp(targetAngle, hinge.limits.min, hinge.limits.max);
 
             float newAngle = Mathf.MoveTowardsAngle(rb.rotation, targetAngle, rotationSpeed * Time.fixedDeltaTime);
-
             rb.MoveRotation(newAngle);
         }
 
         float currentAngle = transform.localEulerAngles.z;
         if (currentAngle > 180) currentAngle -= 360;
 
-        if (Mathf.Abs(currentAngle - hinge.limits.min) <= tolerance)
+        bool atMin = Mathf.Abs(currentAngle - hinge.limits.min) <= tolerance;
+        bool atMax = Mathf.Abs(currentAngle - hinge.limits.max) <= tolerance;
+
+        if (atMin && !minInvoked)
         {
-            if (!minInvoked)
-            {
-                OnMinReached.Invoke();
-                minInvoked = true;
-                maxInvoked = false;
-            }
-        }
-        else if (Mathf.Abs(currentAngle - hinge.limits.max) <= tolerance)
-        {
-            if (!maxInvoked)
-            {
-                OnMaxReached.Invoke();
-                maxInvoked = true;
-                minInvoked = false;
-            }
-        }
-        else
-        {
-            minInvoked = false;
+            OnMinReached.Invoke();
+            minInvoked = true;
             maxInvoked = false;
+        }
+        else if (atMax && !maxInvoked)
+        {
+            OnMaxReached.Invoke();
+            maxInvoked = true;
+            minInvoked = false;
+        }
+        else if (!atMin && !atMax)
+        {
+            // No hacemos nada aquí, solo se resetean al llegar al otro extremo
         }
     }
 
