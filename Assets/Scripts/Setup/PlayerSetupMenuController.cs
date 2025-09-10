@@ -50,9 +50,9 @@ public class PlayerSetupMenuController : MonoBehaviour
     private enum Part { Body, Jetpack, Head }
     private Part currentPart = Part.Body;
 
-    private float inputCooldown = 0.3f;
+    private float inputCooldown = 0.15f;
     private float lastInputTime = 0f;
-    private float ignoreInputTime = 0.2f;
+    private float ignoreInputTime = 0f;
     private bool inputEnabled;
     private bool freeSkinChange = false; // Nuevo flag
 
@@ -248,6 +248,8 @@ public class PlayerSetupMenuController : MonoBehaviour
                 currentJetpackIndex = (currentJetpackIndex - 1 + jetpackSkins.Length) % jetpackSkins.Length;
                 break;
         }
+        
+        ApplySkin();
     }
 
     void ApplySkin()
