@@ -39,6 +39,9 @@ public class PlayerSetupMenuController : MonoBehaviour
     public AnimatorOverrideController[] legsSkins;
     public AnimatorOverrideController[] jetpackSkins;
 
+    [Header("Player Particle Prefabs")]
+    [SerializeField] GameObject[] particlePrefabs;
+
     private int currentBodyIndex = 0;
     private int currentHeadIndex = 0;
     private int currentLegsIndex = 0;
@@ -47,9 +50,9 @@ public class PlayerSetupMenuController : MonoBehaviour
     private enum Part { Body, Jetpack, Head }
     private Part currentPart = Part.Body;
 
-    private float inputCooldown = 0.3f;
+    private float inputCooldown = 0.15f;
     private float lastInputTime = 0f;
-    private float ignoreInputTime = 0.2f;
+    private float ignoreInputTime = 0f;
     private bool inputEnabled;
     private bool freeSkinChange = false; // Nuevo flag
 
@@ -239,18 +242,16 @@ public class PlayerSetupMenuController : MonoBehaviour
                 currentHeadIndex = (currentHeadIndex - 1 + headSkins.Length) % headSkins.Length;
                 break;
             //case Part.Legs:
-                //currentLegsIndex = (currentLegsIndex - 1 + legsSkins.Length) % legsSkins.Length;
-                //break;
+            //currentLegsIndex = (currentLegsIndex - 1 + legsSkins.Length) % legsSkins.Length;
+            //break;
             case Part.Jetpack:
                 currentJetpackIndex = (currentJetpackIndex - 1 + jetpackSkins.Length) % jetpackSkins.Length;
                 break;
         }
-
+        
         ApplySkin();
     }
 
-    // =============================
-    // Aplicar cambios
     void ApplySkin()
     {
         UpdateVisual();
@@ -261,6 +262,11 @@ public class PlayerSetupMenuController : MonoBehaviour
             headSkins[currentHeadIndex],
             legsSkins[currentLegsIndex],
             jetpackSkins[currentJetpackIndex]
+        );
+
+        PlayerConfigurationManager.Instance.SetParticlePrefab(
+            PlayerIndex,
+            particlePrefabs[currentJetpackIndex]
         );
 
         readyButton.Select();

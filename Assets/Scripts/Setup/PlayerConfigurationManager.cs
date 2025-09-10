@@ -50,11 +50,16 @@ public class PlayerConfigurationManager : MonoBehaviour
     {
         return playerConfigs;
     }
+    
+    public void SetParticlePrefab(int index, GameObject prefab)
+    {
+        playerConfigs[index].ParticlePrefab = prefab;
+    }
 
-    public void SetPlayerAnim(int index, 
-        AnimatorOverrideController body, 
-        AnimatorOverrideController head, 
-        AnimatorOverrideController legs, 
+    public void SetPlayerAnim(int index,
+        AnimatorOverrideController body,
+        AnimatorOverrideController head,
+        AnimatorOverrideController legs,
         AnimatorOverrideController jetpack)
     {
         if (index < 0 || index >= playerConfigs.Count) return;
@@ -175,10 +180,14 @@ public class PlayerConfiguration
         Input = pi;
     }
 
+    public GameObject JetpackPrefab { get; private set; }
+
     public PlayerInput Input { get; set; }
     public int PlayerIndex { get; set; }
     public bool IsReady { get; set; }
 
+    public GameObject ParticlePrefab;
+    
     public AnimatorOverrideController BodySkin { get; set; }
     public AnimatorOverrideController HeadSkin { get; set; }
     public AnimatorOverrideController LegsSkin { get; set; }

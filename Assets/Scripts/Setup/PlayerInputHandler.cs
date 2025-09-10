@@ -41,6 +41,25 @@ public class PlayerInputHandler : MonoBehaviour
         if (jetpackAnimator != null)
             jetpackAnimator.runtimeAnimatorController = pc.JetpackSkin;
 
+        if (pc.ParticlePrefab != null)
+        {
+            // HARDCODED
+            Transform spawnPoint = transform.Find("Sprites/ParticleSpawnPoint");
+
+            if (spawnPoint == null)
+            {
+                Debug.LogWarning("No se encontró ParticleSpawnPoint, usando el centro del player.");
+                spawnPoint = transform;
+            }
+
+            GameObject particleInstance = Instantiate(
+                pc.ParticlePrefab,
+                spawnPoint.position,
+                spawnPoint.rotation,
+                spawnPoint
+            );
+        }
+
         playerConfig.Input.onActionTriggered += Input_onActionTriggered;
     }
 
