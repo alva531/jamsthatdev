@@ -20847,7 +20847,7 @@ MonoBehaviour:
   direction: {x: 0, y: -1}
   maxDistance: 2.3
   coneAngle: 16.8
-  forceStrength: 20
+  forceStrength: 5
   affectedLayers:
     serializedVersion: 2
     m_Bits: 192
