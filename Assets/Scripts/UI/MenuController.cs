@@ -18,8 +18,10 @@ public class MenuController : MonoBehaviour
     [SerializeField] private Button _creditsButton;
 
     GameObject playerConfig;
-
     GameObject _fade;
+
+    private bool _waitingForInput = true;   // <- flag para saber si estamos esperando cualquier tecla
+    private bool _transitioning = false;    // <- evita múltiples llamadas
 
     void Start()
     {
@@ -42,13 +44,27 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        // Detectar cualquier tecla solo una vez
+        if (_waitingForInput && !_transitioning && Input.anyKeyDown)
+        {
+            _waitingForInput = false;
+            LoadTransition();
+        }
+    }
+
     public void LoadTransition()
     {
+        _transitioning = true;
+
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
         _playButton.GetComponent<Animator>().SetTrigger("Press");
         _playButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
+
         StartCoroutine(GameFade());
     }
 
@@ -67,14 +83,6 @@ public class MenuController : MonoBehaviour
         Application.Quit();
     }
 
-    // public void LoadCoopGame()
-    // {
-    //     Time.timeScale = 1f;
-    //     Cursor.lockState = CursorLockMode.Locked;
-    //     Cursor.visible = false;
-    //     SceneManager.LoadScene("Valve2Coop");
-    // }
-
     public void LoadMainMenu()
     {
         Time.timeScale = 1f;
@@ -91,7 +99,7 @@ public class MenuController : MonoBehaviour
         _settingsButtonChild.GetComponentInChildren<Animator>().SetTrigger("Press");
         _creditsButton.Select();
     }
-    
+
     public void LoadCredits()
     {
         Time.timeScale = 1f;
@@ -99,12 +107,14 @@ public class MenuController : MonoBehaviour
         Cursor.visible = true;
         StartCoroutine(CreditsFade());
     }
+
     private IEnumerator MenuFade()
     {
         _fade.GetComponent<Animator>().SetTrigger("Out");
         yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene("MainMenu");
     }
+
     private IEnumerator CreditsFade()
     {
         _fade.GetComponent<Animator>().SetTrigger("Out");
