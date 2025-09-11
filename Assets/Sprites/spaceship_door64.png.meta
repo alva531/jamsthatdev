@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c745be1ea1affb4428bbb5397381f473
+guid: 9b3d3adbf78ae874ea1e4ab7878457d0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -81,19 +81,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -123,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spaceship_2doort_0
+      name: spaceship_door64_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
-        height: 96
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d38f43cbd170764ebefc72a944ef4ca
-      internalID: 2025587537
+      spriteID: e6a1b0ef5172bc64fa3a10bb68e00a53
+      internalID: -272266898
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceship_2doort_1
+      name: spaceship_door64_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 32
-        height: 96
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebeb9f7bba17c4742b60c5ba785dc20e
-      internalID: 348408536
+      spriteID: 0842338c8b4128049864161ba96697f4
+      internalID: -1728784121
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceship_2doort_2
+      name: spaceship_door64_2
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 32
-        height: 96
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e1d00ca56cf38240a05205dea26aba3
-      internalID: -1541017203
+      spriteID: fa0c3c33a1fe4264bbc90188bd8fff30
+      internalID: -906743459
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceship_2doort_3
+      name: spaceship_door64_3
       rect:
         serializedVersion: 2
         x: 96
         y: 0
         width: 32
-        height: 96
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -200,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 693041bcf1afd804a866d2d446517110
-      internalID: -2051526337
+      spriteID: 0403a9971a894004a8c7e44cde2e3813
+      internalID: 467069014
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceship_2doort_4
+      name: spaceship_door64_4
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 32
-        height: 96
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,20 +208,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f1d0a4db0d4b12479d6d09625c2cf6c
-      internalID: 774902720
+      spriteID: 4bcf68d6cc9e14c498a582e5e993248b
+      internalID: -580664749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spaceship_2doort_5
+      name: spaceship_door64_5
       rect:
         serializedVersion: 2
         x: 160
         y: 0
         width: 32
-        height: 96
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -242,8 +229,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 560f5e0c2a9360b48a234639260552f8
-      internalID: 225960481
+      spriteID: 3f9bc5dea4e45f545b7989e8009f4b24
+      internalID: 2094820444
       vertices: []
       indices: 
       edges: []
@@ -251,7 +238,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c4ebf23e63e227945ae2dfd0c3e51149
+    spriteID: b88a8b2e310d9e040ae936ac53ff83a1
     internalID: 0
     vertices: []
     indices: 
@@ -259,12 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spaceship_2doort_0: 2025587537
-      spaceship_2doort_1: 348408536
-      spaceship_2doort_2: -1541017203
-      spaceship_2doort_3: -2051526337
-      spaceship_2doort_4: 774902720
-      spaceship_2doort_5: 225960481
+      spaceship_door64_0: -272266898
+      spaceship_door64_1: -1728784121
+      spaceship_door64_2: -906743459
+      spaceship_door64_3: 467069014
+      spaceship_door64_4: -580664749
+      spaceship_door64_5: 2094820444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
