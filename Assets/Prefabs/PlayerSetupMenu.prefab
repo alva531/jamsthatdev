@@ -1249,11 +1249,11 @@ MonoBehaviour:
   bodySprites:
   - {fileID: -738703692, guid: f6e273e7107854c44bbbf73f67db94b9, type: 3}
   - {fileID: 1828512643, guid: becd05ff2d0dbad419b1eb88d8a28358, type: 3}
-  - {fileID: 793096549, guid: 00504bb116108984babc5c8a8679dde3, type: 3}
+  - {fileID: -284455937, guid: 1753827ff5190c4459a2ceb7b15f6d21, type: 3}
   headSprites:
   - {fileID: 650112457, guid: c5f1657ba224bf848bc3a4fe351504eb, type: 3}
   - {fileID: -791141811, guid: 47b27cfd4f2325247a8c5bd330cc3032, type: 3}
-  - {fileID: -1216576872, guid: 1f31a6632d404924ca0a02c2f4711e92, type: 3}
+  - {fileID: -774276605, guid: acbfc41f22012aa45a408e1141c60aac, type: 3}
   legsSprites:
   - {fileID: 1225833897, guid: 8dfb321a5eb399b439b0986256c55199, type: 3}
   - {fileID: 967341892, guid: 6b267a94f8e40844899ede56528fd022, type: 3}
@@ -1261,15 +1261,15 @@ MonoBehaviour:
   jetpackSprites:
   - {fileID: -145672012, guid: 7fcd3e5a06708084ba4afb10b033976d, type: 3}
   - {fileID: -962228334, guid: 9ea4992833832704aa069fb5b2082f56, type: 3}
-  - {fileID: -1055280469, guid: b3f3d23577f6afa4e99867a8d020a288, type: 3}
+  - {fileID: 1351621336, guid: 4082252d6b1ef794e98280f6f733ed85, type: 3}
   bodySkins:
   - {fileID: 22100000, guid: 01b9546b05e680649aeeabbedacfdb53, type: 2}
   - {fileID: 22100000, guid: b4a3f1630dd71ff429ee1fc3cb41e580, type: 2}
-  - {fileID: 22100000, guid: 8b750c833ca43b34fa9f32f3f2f47575, type: 2}
+  - {fileID: 22100000, guid: e7063e60b19463a4f83a340e681aebb7, type: 2}
   headSkins:
   - {fileID: 22100000, guid: 5cd7b4495fe51084cac8b26968567559, type: 2}
   - {fileID: 22100000, guid: 0624f7cee9dcc614f8ca12e70b50bee0, type: 2}
-  - {fileID: 22100000, guid: bf703728550135c4cbf0f550721bdbd5, type: 2}
+  - {fileID: 22100000, guid: 02207181c2783754a952de9efde6c3e9, type: 2}
   legsSkins:
   - {fileID: 22100000, guid: 258cd2a49767ccd47ac0da16ad4da930, type: 2}
   - {fileID: 22100000, guid: afdccca72a2e3c7469816ccc506fa0e2, type: 2}
@@ -1277,7 +1277,7 @@ MonoBehaviour:
   jetpackSkins:
   - {fileID: 22100000, guid: 529d687d66ea2b94bb73440745ada322, type: 2}
   - {fileID: 22100000, guid: f7d655360d6aff94699563d12373f67c, type: 2}
-  - {fileID: 22100000, guid: 358ddb8004f436e45acb767277dfe600, type: 2}
+  - {fileID: 22100000, guid: 01fa5cbea157b7d48b3e542b2511d06e, type: 2}
   particlePrefabs:
   - {fileID: 7421575622322378997, guid: 9a872d428d13c274391f52c42430dd21, type: 3}
   - {fileID: 2855972356787466265, guid: 458a9de55b3a7b241aef366c90cc5816, type: 3}
