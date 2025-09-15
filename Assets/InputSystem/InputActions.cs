@@ -256,6 +256,83 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""99457fef-991b-4dac-89d6-3a37b6d037a2"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""46e37498-b635-40f3-96ae-0cfdbb98e702"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85e2ea69-07aa-4b76-9da0-fe1156db3b37"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""768f2082-7570-4ddc-b837-41bb88163bd9"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba885c74-d463-42da-b009-cb93ddd037ce"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0886126c-252b-47ee-b5e5-8e29cabbf8e6"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""55a129b4-1a06-457a-b118-fdb976871318"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Grab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""884d7ab0-266f-42dd-9515-656312d5f198"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
@@ -272,230 +349,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Pet"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Player1"",
-            ""id"": ""9c689f87-4008-49d4-993e-e5f224c2ff68"",
-            ""actions"": [
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""bd28cb87-fb1a-43d5-abd2-a986f19b4138"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Grab"",
-                    ""type"": ""Button"",
-                    ""id"": ""503e7628-a447-4afe-be62-477788cf3d48"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pet"",
-                    ""type"": ""Button"",
-                    ""id"": ""f101798c-2053-4a12-87ce-8bc578b04653"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""31811579-846b-494b-802c-0a0d1b823d11"",
-                    ""path"": ""Dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""b798f98f-d888-4201-9568-b1b0a03c00fd"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""1c707af5-f9ff-4ea6-9c37-0642d51ace21"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""373ab415-d7a3-4aa3-beb2-10d7798e2529"",
-                    ""path"": ""<Keyboard>/a"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""d47e2f5f-199f-4fa0-8b40-3c464380f3f6"",
-                    ""path"": ""<Keyboard>/d"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1c03ed21-bb3f-4cbd-bfeb-ea4507e580e8"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Grab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""421ec667-cdfc-405f-95f9-7353e5cccbd3"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Pet"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Player2"",
-            ""id"": ""c5f32aa9-ddf6-4153-97c2-c839b1a7bc56"",
-            ""actions"": [
-                {
-                    ""name"": ""Move"",
-                    ""type"": ""Value"",
-                    ""id"": ""53a53cdb-8b15-48f4-8b92-b1255ff0d73f"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Grab"",
-                    ""type"": ""Button"",
-                    ""id"": ""9f45b4b5-cc7c-4f02-bd35-9314e49b7852"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Pet"",
-                    ""type"": ""Button"",
-                    ""id"": ""c0752663-ddd5-4b20-bd0e-0b7bbf7b92e1"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""91eda143-984b-4702-a06d-44d22f4039e2"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Grab"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""WASD"",
-                    ""id"": ""3a5cfae0-359f-401f-829e-874c7dfb4aa8"",
-                    ""path"": ""Dpad"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Move"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""315cdf94-a024-4607-9518-83fd939d5d50"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""8b1a774d-0c33-4662-ae57-c3545a01f418"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""8b1cc2f5-d102-40f1-bcdb-5633a0599531"",
-                    ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""7887e9ec-749d-440b-a1ea-4ab7c071fdaf"",
-                    ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""613e4a1e-020d-4866-9b07-5f442ba93708"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Pet"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -1170,16 +1023,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Grab = m_Player.FindAction("Grab", throwIfNotFound: true);
         m_Player_Pet = m_Player.FindAction("Pet", throwIfNotFound: true);
-        // Player1
-        m_Player1 = asset.FindActionMap("Player1", throwIfNotFound: true);
-        m_Player1_Move = m_Player1.FindAction("Move", throwIfNotFound: true);
-        m_Player1_Grab = m_Player1.FindAction("Grab", throwIfNotFound: true);
-        m_Player1_Pet = m_Player1.FindAction("Pet", throwIfNotFound: true);
-        // Player2
-        m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
-        m_Player2_Move = m_Player2.FindAction("Move", throwIfNotFound: true);
-        m_Player2_Grab = m_Player2.FindAction("Grab", throwIfNotFound: true);
-        m_Player2_Pet = m_Player2.FindAction("Pet", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1314,130 +1157,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // Player1
-    private readonly InputActionMap m_Player1;
-    private List<IPlayer1Actions> m_Player1ActionsCallbackInterfaces = new List<IPlayer1Actions>();
-    private readonly InputAction m_Player1_Move;
-    private readonly InputAction m_Player1_Grab;
-    private readonly InputAction m_Player1_Pet;
-    public struct Player1Actions
-    {
-        private @InputActions m_Wrapper;
-        public Player1Actions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Player1_Move;
-        public InputAction @Grab => m_Wrapper.m_Player1_Grab;
-        public InputAction @Pet => m_Wrapper.m_Player1_Pet;
-        public InputActionMap Get() { return m_Wrapper.m_Player1; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Player1Actions set) { return set.Get(); }
-        public void AddCallbacks(IPlayer1Actions instance)
-        {
-            if (instance == null || m_Wrapper.m_Player1ActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_Player1ActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
-            @Grab.started += instance.OnGrab;
-            @Grab.performed += instance.OnGrab;
-            @Grab.canceled += instance.OnGrab;
-            @Pet.started += instance.OnPet;
-            @Pet.performed += instance.OnPet;
-            @Pet.canceled += instance.OnPet;
-        }
-
-        private void UnregisterCallbacks(IPlayer1Actions instance)
-        {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
-            @Grab.started -= instance.OnGrab;
-            @Grab.performed -= instance.OnGrab;
-            @Grab.canceled -= instance.OnGrab;
-            @Pet.started -= instance.OnPet;
-            @Pet.performed -= instance.OnPet;
-            @Pet.canceled -= instance.OnPet;
-        }
-
-        public void RemoveCallbacks(IPlayer1Actions instance)
-        {
-            if (m_Wrapper.m_Player1ActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPlayer1Actions instance)
-        {
-            foreach (var item in m_Wrapper.m_Player1ActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_Player1ActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public Player1Actions @Player1 => new Player1Actions(this);
-
-    // Player2
-    private readonly InputActionMap m_Player2;
-    private List<IPlayer2Actions> m_Player2ActionsCallbackInterfaces = new List<IPlayer2Actions>();
-    private readonly InputAction m_Player2_Move;
-    private readonly InputAction m_Player2_Grab;
-    private readonly InputAction m_Player2_Pet;
-    public struct Player2Actions
-    {
-        private @InputActions m_Wrapper;
-        public Player2Actions(@InputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Move => m_Wrapper.m_Player2_Move;
-        public InputAction @Grab => m_Wrapper.m_Player2_Grab;
-        public InputAction @Pet => m_Wrapper.m_Player2_Pet;
-        public InputActionMap Get() { return m_Wrapper.m_Player2; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(Player2Actions set) { return set.Get(); }
-        public void AddCallbacks(IPlayer2Actions instance)
-        {
-            if (instance == null || m_Wrapper.m_Player2ActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_Player2ActionsCallbackInterfaces.Add(instance);
-            @Move.started += instance.OnMove;
-            @Move.performed += instance.OnMove;
-            @Move.canceled += instance.OnMove;
-            @Grab.started += instance.OnGrab;
-            @Grab.performed += instance.OnGrab;
-            @Grab.canceled += instance.OnGrab;
-            @Pet.started += instance.OnPet;
-            @Pet.performed += instance.OnPet;
-            @Pet.canceled += instance.OnPet;
-        }
-
-        private void UnregisterCallbacks(IPlayer2Actions instance)
-        {
-            @Move.started -= instance.OnMove;
-            @Move.performed -= instance.OnMove;
-            @Move.canceled -= instance.OnMove;
-            @Grab.started -= instance.OnGrab;
-            @Grab.performed -= instance.OnGrab;
-            @Grab.canceled -= instance.OnGrab;
-            @Pet.started -= instance.OnPet;
-            @Pet.performed -= instance.OnPet;
-            @Pet.canceled -= instance.OnPet;
-        }
-
-        public void RemoveCallbacks(IPlayer2Actions instance)
-        {
-            if (m_Wrapper.m_Player2ActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IPlayer2Actions instance)
-        {
-            foreach (var item in m_Wrapper.m_Player2ActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_Player2ActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public Player2Actions @Player2 => new Player2Actions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -1657,18 +1376,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         }
     }
     public interface IPlayerActions
-    {
-        void OnMove(InputAction.CallbackContext context);
-        void OnGrab(InputAction.CallbackContext context);
-        void OnPet(InputAction.CallbackContext context);
-    }
-    public interface IPlayer1Actions
-    {
-        void OnMove(InputAction.CallbackContext context);
-        void OnGrab(InputAction.CallbackContext context);
-        void OnPet(InputAction.CallbackContext context);
-    }
-    public interface IPlayer2Actions
     {
         void OnMove(InputAction.CallbackContext context);
         void OnGrab(InputAction.CallbackContext context);

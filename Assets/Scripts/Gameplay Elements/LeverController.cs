@@ -120,6 +120,8 @@ public class LeverController : MonoBehaviour
         player = playerTransform;
         isGrabbed = true;
 
+        rb.bodyType = RigidbodyType2D.Dynamic;
+
         if (springJoint == null)
         {
             springJoint = gameObject.AddComponent<SpringJoint2D>();
@@ -138,6 +140,10 @@ public class LeverController : MonoBehaviour
             Destroy(springJoint);
             springJoint = null;
         }
+
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Kinematic;
 
         player = null;
         isGrabbed = false;

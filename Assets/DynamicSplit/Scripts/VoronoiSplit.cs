@@ -44,9 +44,13 @@ public class VoronoiSplit : MonoBehaviour
     #region Public Variables
 
     [Header("Camera Zoom")]
-    public float MinOrthoSize = 1.25f;   // Tamaño mínimo de la cámara
-    public float MaxOrthoSize = 1.5f;  // Tamaño máximo de la cámara
-    public float SplitThreshold = 4f; // Distancia a la que empieza a splittear
+    public float MinOrthoSize = 1.25f;
+    public float MaxOrthoSize = 1.5f;
+    public float SplitThreshold = 4f;
+
+    [Header("Split Thresholds")]
+    public float SplitThresholdX = 4f;
+    public float SplitThresholdY = 3f;
 
     [Header("References")]
     public Camera MainCamera;
@@ -282,29 +286,31 @@ public class VoronoiSplit : MonoBehaviour
             if (EnableMerging)
             {
                 var realDiff = worldPositions[1] - worldPositions[0];
-                var realDistance = realDiff.magnitude;
+                float dx = Mathf.Abs(realDiff.x);
+                float dy = Mathf.Abs(realDiff.y);
 
-                // Ajustar ortho size en función de la distancia
-                float targetOrtho = Mathf.Lerp(MinOrthoSize, MaxOrthoSize, realDistance / SplitThreshold);
+                float ratioX = dx / SplitThresholdX;
+                float ratioY = dy / SplitThresholdY;
+
+                float splitRatio = Mathf.Max(ratioX, ratioY);
+
+                float targetOrtho = Mathf.Lerp(MinOrthoSize, MaxOrthoSize, splitRatio);
                 targetOrtho = Mathf.Clamp(targetOrtho, MinOrthoSize, MaxOrthoSize);
                 OnOrthoSizeChanged(targetOrtho);
 
-                // Decidir si mergear o splitear
-                if (realDistance <= SplitThreshold)
+                if (splitRatio <= 1f)
                 {
                     mergedPosition = Vector2.Lerp(worldPositions[0], worldPositions[1], 0.5f);
-                    float mergeStart = SplitThreshold * 0.8f; // rango de suavizado (ej: empieza a splitear al 80%)
-                    
-                    if (realDistance <= mergeStart)
+                    float mergeStart = 0.8f;
+
+                    if (splitRatio <= mergeStart)
                     {
-                        // completamente mergeados
                         mergeRatio = 1;
                         activePlayers = 1;
                     }
                     else
                     {
-                        // transición merge <-> split
-                        float t = (realDistance - mergeStart) / (SplitThreshold - mergeStart);
+                        float t = (splitRatio - mergeStart) / (1f - mergeStart);
                         mergeRatio = 1 - Mathf.Clamp01(t);
                     }
                 }

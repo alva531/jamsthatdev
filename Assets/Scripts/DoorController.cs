@@ -22,4 +22,13 @@ public class DoorController : MonoBehaviour
         animator.SetBool("Open", false);
         animator.SetBool("Close", true);
     }
+
+    public void StayOpen()
+    {
+        animator.SetBool("StayOpen", true);
+    }
+    public void ResetOpen()
+    {
+        animator.SetBool("StayOpen", false);
+    }
 }
