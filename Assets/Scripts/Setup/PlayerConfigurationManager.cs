@@ -125,7 +125,7 @@ public class PlayerConfigurationManager : MonoBehaviour
 
             yield return new WaitForSeconds(0.5f);
 
-            string sceneToLoad = playerConfigs.Count == 1 ? "SP_LVL1" : "CoopInput2 Backup";
+            string sceneToLoad = playerConfigs.Count == 1 ? "SP_LVL1" : "ElectricBox";
             SceneManager.LoadScene(sceneToLoad);
         }
 

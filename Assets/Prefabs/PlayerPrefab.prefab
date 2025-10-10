@@ -317,7 +317,7 @@ MonoBehaviour:
   rayCount: 10
   grabbableMask:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 3200
   rayOrigin: {fileID: 6482965455300268008}
   jetpackMovement: {fileID: 8612685658056718565}
 --- !u!114 &8084134880974416309

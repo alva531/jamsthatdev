@@ -68,16 +68,25 @@ public class PlayerGrab : MonoBehaviour
                     baseDirection.x * Mathf.Sin(finalAngle) + baseDirection.y * Mathf.Cos(finalAngle)
                 );
 
-                RaycastHit2D hit = Physics2D.Raycast(rayOrigin.position, dir, distance, grabbableMask);
+                ContactFilter2D filter = new ContactFilter2D();
+                filter.SetLayerMask(grabbableMask);
+                filter.useTriggers = true;
+
+                RaycastHit2D[] results = new RaycastHit2D[1];
+                int hitCount = Physics2D.Raycast(rayOrigin.position, dir, filter, results, distance);
+
                 Debug.DrawRay(rayOrigin.position, dir * distance, Color.red);
 
-                if (hit.collider != null)
+                if (hitCount > 0)
                 {
-                    // ---- Grabbable (cajas) ----
+                    RaycastHit2D hit = results[0];
+
                     if (hit.collider.CompareTag("Grabbable"))
                     {
                         heldObject = hit.collider.gameObject;
                         heldLever = null;
+
+                        heldObject.GetComponent<GrabbableObj>().isGrabbed = true;
 
                         FixedJoint2D joint = heldObject.GetComponent<FixedJoint2D>();
                         joint.connectedBody = GetComponent<Rigidbody2D>();
@@ -94,7 +103,6 @@ public class PlayerGrab : MonoBehaviour
                         break;
                     }
 
-                    // ---- Lever (palancas) ----
                     if (hit.collider.CompareTag("Lever"))
                     {
                         heldObject = hit.collider.gameObject;
@@ -102,7 +110,7 @@ public class PlayerGrab : MonoBehaviour
 
                         if (heldLever != null)
                         {
-                            heldLever.Grab(transform);   // SpringJoint2D en la palanca se conecta al player
+                            heldLever.Grab(transform);
                             jetpackMovement.soundController.BoxGrabSFX();
 
                             var anim = heldObject.GetComponentInChildren<Animator>();
@@ -115,7 +123,6 @@ public class PlayerGrab : MonoBehaviour
             }
         }
 
-        // ---- Soltar ----
         if (heldObject != null && !isGrabbing)
         {
             if (heldObject.CompareTag("Grabbable"))
@@ -124,12 +131,14 @@ public class PlayerGrab : MonoBehaviour
                 joint.enabled = false;
                 joint.connectedBody = null;
 
+                heldObject.GetComponent<GrabbableObj>().isGrabbed = false;
+
                 var anim = heldObject.GetComponentInChildren<Animator>();
                 if (anim != null) anim.SetBool("Grab", false);
             }
            else if (heldObject.CompareTag("Lever") && heldLever != null)
             {
-                heldLever.Release();   // ✅ ahora liberamos el control
+                heldLever.Release();
                 var anim = heldObject.GetComponentInChildren<Animator>();
                 if (anim != null) anim.SetBool("Grab", false);
             }
