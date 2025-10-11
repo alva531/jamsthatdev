@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxPlugSocket : MonoBehaviour
@@ -6,7 +7,7 @@ public class BoxPlugSocket : MonoBehaviour
     public Cable[] cablesToActivate;
 
     [Header("Estado de energía")]
-    public float currentEnergy = 0f;
+    public int currentEnergy = 0;
 
     private BatteryBox connectedBattery;
     private bool isPowered = false;
@@ -14,19 +15,14 @@ public class BoxPlugSocket : MonoBehaviour
     [Header("Snapping")]
     [SerializeField] private float snapSpeed = 5f;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        TrySnapBattery(other);
-    }
+    private List<PlugSocket> activeSockets = new List<PlugSocket>();
 
-    private void OnTriggerStay2D(Collider2D other)
-    {
-        TrySnapBattery(other);
-    }
+    private void OnTriggerEnter2D(Collider2D other) => TrySnapBattery(other);
+    private void OnTriggerStay2D(Collider2D other) => TrySnapBattery(other);
 
     private void TrySnapBattery(Collider2D other)
     {
-        GrabbableObj grabbable = other.GetComponent<GrabbableObj>();
+        var grabbable = other.GetComponent<GrabbableObj>();
         if (grabbable != null && grabbable.isGrabbed) return;
 
         BatteryBox battery = other.GetComponent<BatteryBox>();
@@ -39,17 +35,8 @@ public class BoxPlugSocket : MonoBehaviour
             rb.angularVelocity = 0f;
         }
 
-        battery.transform.position = Vector2.Lerp(
-            battery.transform.position,
-            transform.position,
-            Time.deltaTime * snapSpeed
-        );
-
-        battery.transform.rotation = Quaternion.Lerp(
-            battery.transform.rotation,
-            transform.rotation,
-            Time.deltaTime * snapSpeed
-        );
+        battery.transform.position = Vector2.Lerp(battery.transform.position, transform.position, Time.deltaTime * snapSpeed);
+        battery.transform.rotation = Quaternion.Lerp(battery.transform.rotation, transform.rotation, Time.deltaTime * snapSpeed);
 
         if (connectedBattery == null)
             ConnectBattery(battery);
@@ -58,44 +45,94 @@ public class BoxPlugSocket : MonoBehaviour
     public void ConnectBattery(BatteryBox battery)
     {
         connectedBattery = battery;
-        currentEnergy = battery.charge;
+        currentEnergy = Mathf.FloorToInt(battery.charge);
         isPowered = true;
-        UpdateCables();
+        UpdateCablesVisual();
     }
 
     public void DisconnectBattery()
     {
+        if (connectedBattery != null)
+        {
+            // Restauramos la carga original de la batería
+            connectedBattery.RestoreOriginalCharge();
+        }
+
         connectedBattery = null;
         isPowered = false;
-        currentEnergy = 0f;
-        UpdateCables();
-    }
+        currentEnergy = 0;
+        activeSockets.Clear();
 
-    private void UpdateCables()
-    {
+        // Actualizamos visual de todos los cables
         foreach (var cable in cablesToActivate)
         {
             if (cable != null)
-                cable.SetCharge(isPowered ? currentEnergy : 0f, true, this);
+                cable.SetCharge(0f, true, null);
+        }
+
+        // Si algún plug seguía activo, avisamos que perdió energía
+        foreach (var plug in activeSockets)
+            plug.OnEnergyLost();
+        
+        activeSockets.Clear();
+    }
+
+    public bool TryConsumeEnergy(PlugSocket plug)
+    {
+        if (!isPowered) return false;
+        if (activeSockets.Contains(plug)) return true;
+
+        int used = 0;
+        foreach (var ps in activeSockets)
+            used += (int)ps.requiredEnergy;
+
+        int available = currentEnergy - used;
+
+        if (plug.requiredEnergy <= available)
+        {
+            activeSockets.Add(plug);
+            UpdateCablesVisual();
+            plug.OnEnergyAvailable();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void ReleaseEnergy(PlugSocket plug)
+    {
+        if (activeSockets.Contains(plug))
+        {
+            activeSockets.Remove(plug);
+            UpdateCablesVisual();
+            plug.OnEnergyLost();
         }
     }
 
-    public void OnPlugSocketConnect()
+    public void UpdateCablesVisual()
     {
-        if (!isPowered) return;
-    }
+        int used = 0;
+        foreach (var ps in activeSockets)
+            used += (int)ps.requiredEnergy;
 
-    public void OnPlugSocketDisconnect()
-    {
-        if (!isPowered) return;
-    }
+        int remaining = Mathf.Max(0, currentEnergy - used);
 
-    public void RestoreEnergyFromPlug()
-    {
-        if (connectedBattery != null)
+        foreach (var cable in cablesToActivate)
         {
-            currentEnergy = connectedBattery.charge;
-            UpdateCables();
+            if (cable == null) continue;
+
+            bool isUsing = false;
+            foreach (var ps in activeSockets)
+            {
+                if (ps.connectedCable == cable)
+                {
+                    isUsing = true;
+                    break;
+                }
+            }
+
+            int displayCharge = isUsing ? Mathf.FloorToInt(cable.charge) : remaining;
+            cable.SetCharge(displayCharge, true, this);
         }
     }
 }

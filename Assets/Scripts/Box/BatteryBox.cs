@@ -1,23 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
 public class BatteryBox : MonoBehaviour
 {
-    [Header("Configuración de la batería")]
-    [Tooltip("Cantidad total de energía disponible en la batería.")]
-    public float charge = 100f;
+    public float charge = 5f;
 
     private bool isConnected = false;
     private BoxPlugSocket currentSocket;
+    private GrabbableObj grabbable;
+
+
+    private float originalCharge;
+
+    void Start()
+    {
+        grabbable = GetComponent<GrabbableObj>();
+        originalCharge = charge;
+    }
+
+    void Update()
+    {
+        if (grabbable != null && grabbable.isGrabbed && isConnected)
+            Disconnect();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (isConnected) return;
 
         BoxPlugSocket socket = other.GetComponent<BoxPlugSocket>();
-        if (socket != null)
+        if (socket != null && grabbable != null && !grabbable.isGrabbed)
             Connect(socket);
     }
 
@@ -45,4 +57,10 @@ public class BatteryBox : MonoBehaviour
 
         isConnected = false;
     }
+
+    public void RestoreOriginalCharge()
+    {
+        charge = originalCharge;
+    }
 }
+

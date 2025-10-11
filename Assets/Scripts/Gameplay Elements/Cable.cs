@@ -1,14 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Cable : MonoBehaviour
 {
-    [Tooltip("Cantidad de energía actual del cable.")]
     public float charge = 0f;
-    [Tooltip("Duración de la transición visual del cambio de energía.")]
     public float chargeDuration = 1f;
-
     public Color unchargedColor = Color.gray;
     public Color chargedColor = Color.yellow;
 
@@ -21,9 +17,7 @@ public class Cable : MonoBehaviour
 
     public void SetCharge(float value, bool smooth = true, BoxPlugSocket source = null)
     {
-        if (source != null)
-            sourceSocket = source;
-
+        if (source != null) sourceSocket = source;
         value = Mathf.Max(0f, value);
 
         if (chargeRoutine != null)
@@ -58,7 +52,6 @@ public class Cable : MonoBehaviour
     private void UpdateVisual()
     {
         if (lineRenderer == null) return;
-
         Color currentColor = Color.Lerp(unchargedColor, chargedColor, Mathf.InverseLerp(0f, 5f, charge));
         lineRenderer.startColor = currentColor;
         lineRenderer.endColor = currentColor;
